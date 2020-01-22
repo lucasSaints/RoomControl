@@ -1,0 +1,25 @@
+
+ cadastro de salas - app secretaria
+ agenda + sala de cinema
+
+ - cadastro de...
+	> usuario (urgente) (n precisa checar por email)
+	> empresa
+	> salas
+ - visualizacao de salas
+ - alocacao de sala
+
+ - botao de add reuniao
+	> nome da reuniao
+	> sala
+	> data
+	> horario
+
+ - reuniao de rotina (opicional)
+
+
+ - bloco de reunião
+	> sala
+	> quem alocou
+	> descricao da reuniao
+	> data e hora
