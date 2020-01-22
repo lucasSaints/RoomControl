@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.login.LoginActivity">
+    tools:context=".LoginActivity">
 
     <ImageView
         android:id="@+id/fundo"
@@ -22,15 +22,16 @@
         android:id="@+id/username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="42dp"
         android:layout_marginTop="232dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="42dp"
         android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         android:shadowColor="#14000000"
         android:textColor="@color/colorText"
         android:textColorHint="#7a5d60"
+        android:backgroundTint="#7a5d60"
         android:textColorLink="#6FFFC5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,9 +41,8 @@
         android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="42dp"
         android:hint="@string/prompt_password"
         android:imeActionLabel="@string/action_sign_in_short"
         android:imeOptions="actionDone"
@@ -50,6 +50,7 @@
         android:selectAllOnFocus="true"
         android:textColor="@color/colorText"
         android:textColorHint="#7a5d60"
+        android:backgroundTint="#7a5d60"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username" />

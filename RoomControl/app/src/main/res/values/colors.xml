@@ -4,4 +4,5 @@
     <color name="colorSecondary">#702127</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorText">#fffdf0</color>
+    <color name="colorFakeBlack">#0e0017</color>
 </resources>
