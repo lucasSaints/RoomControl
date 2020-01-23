@@ -9,6 +9,8 @@
     <string name="welcome">"Bem-vindo!"</string>
     <string name="invalid_username">Nome de usuário inválido</string>
     <string name="invalid_password">Senha deve conter no mínimo 6 caracteres</string>
+    <string name="invalid_email">O email inserido não corresponde a nenhum cadastrado</string>
+    <string name="senha_incorreta">Senha incorreta</string>
     <string name="login_failed">Falha no login</string>
     <string name="ac">Ar-Condicionado</string>
     <string name="hora_de_termino">Hora de término</string>
@@ -20,4 +22,5 @@
     <string name="quantidade_de_computadores">quantidade de computadores</string>
     <string name="precisa_de_projetor">precisa de projetor?</string>
     <string name="precisa_de_ar_condicionado">precisa de ar condicionado?</string>
+    <string name="save">Salvar</string>
 </resources>
