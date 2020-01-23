@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/fundo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@color/colorDesaturated" />
+
+    <ImageView
+        android:id="@+id/fundoCalend"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/calendarView"
+        app:layout_constraintEnd_toEndOf="@+id/calendarView"
+        app:layout_constraintStart_toStartOf="@+id/calendarView"
+        app:layout_constraintTop_toTopOf="@+id/calendarView"
+        app:srcCompat="@color/colorGreyText" />
+
+    <EditText
+        android:id="@+id/descripText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginRight="35dp"
+        android:backgroundTint="@color/colorGreyText"
+        android:contentDescription="@string/insira_breve_descricao_reuniao"
+        android:ems="10"
+        android:hint="@string/insira_breve_descricao_reuniao"
+        android:inputType="textPersonName"
+        android:textColorHint="@color/colorGreyText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" tools:targetApi="lollipop" />
+
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:contentDescription="@string/escolha_data_reuniao_calendrio"
+        android:minDate="01/01/2020"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descripText" />
+
+    <EditText
+        android:id="@+id/horaText"
+        android:layout_width="142dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="@color/colorGreyText"
+        android:contentDescription="@string/hora_de_inicio"
+        android:ems="10"
+        android:hint="@string/hora_de_inicio"
+        android:inputType="time"
+        android:textColorHint="@color/colorGreyText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendarView"
+        tools:targetApi="lollipop" />
+
+    <EditText
+        android:id="@+id/horaText2"
+        android:layout_width="142dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:backgroundTint="@color/colorGreyText"
+        android:contentDescription="@string/hora_de_termino"
+        android:ems="10"
+        android:hint="@string/hora_de_termino"
+        android:inputType="time"
+        android:textColorHint="@color/colorGreyText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendarView"
+        tools:targetApi="lollipop" />
+
+    <EditText
+        android:id="@+id/pcText"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="95dp"
+        android:backgroundTint="@color/colorGreyText"
+        android:contentDescription="@string/quantidade_de_computadores"
+        android:ems="10"
+        android:hint="15"
+        android:inputType="number"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorGreyText"
+        app:layout_constraintEnd_toEndOf="@+id/calendarView"
+        app:layout_constraintStart_toStartOf="@+id/calendarView"
+        app:layout_constraintTop_toBottomOf="@+id/calendarView"
+        tools:targetApi="lollipop" />
+
+    <TextView
+        android:id="@+id/pcHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/computadores"
+        android:textColor="@color/colorGreyText"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/pcText"
+        app:layout_constraintStart_toStartOf="@+id/pcText"
+        app:layout_constraintTop_toBottomOf="@+id/pcText" />
+
+    <Switch
+        android:id="@+id/switchProjetor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/precisa_de_projetor"
+        app:layout_constraintBottom_toBottomOf="@+id/pcText"
+        app:layout_constraintEnd_toStartOf="@+id/pcText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/pcText" />
+
+    <TextView
+        android:id="@+id/projetorHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/projetor"
+        android:textColor="@color/colorGreyText"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/switchProjetor"
+        app:layout_constraintStart_toStartOf="@+id/switchProjetor"
+        app:layout_constraintTop_toBottomOf="@+id/switchProjetor" />
+
+    <Switch
+        android:id="@+id/switchAC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/precisa_de_ar_condicionado"
+        app:layout_constraintBottom_toBottomOf="@+id/pcText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pcText"
+        app:layout_constraintTop_toTopOf="@+id/pcText" />
+
+    <TextView
+        android:id="@+id/acHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ac"
+        android:textColor="@color/colorGreyText"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/switchAC"
+        app:layout_constraintStart_toStartOf="@+id/switchAC"
+        app:layout_constraintTop_toBottomOf="@+id/switchProjetor" />
+
+    <Spinner
+        android:id="@+id/dropdown"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@android:drawable/btn_dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pcHint" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
