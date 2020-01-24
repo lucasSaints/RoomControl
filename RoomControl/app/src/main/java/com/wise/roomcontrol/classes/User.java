@@ -8,7 +8,7 @@ public class User {
     private String mail;
     private String senha;
     private String user;
-    private String empresa;
+    private int empresaId;
     private int id;
     static private int contadorId=1;
     final private Dao dao=new Dao();
@@ -30,7 +30,7 @@ public class User {
         return senha;
     }
 
-    public void setEmpresa(String empresa) {
-        this.empresa = empresa;
+    public void setEmpresaById(int empresa) {
+        this.empresaId = empresa;
     }
 }

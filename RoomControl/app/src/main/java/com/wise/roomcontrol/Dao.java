@@ -12,33 +12,47 @@ import java.util.List;
 public class Dao {
     static public List<User> users = new ArrayList<>();
     static public List<Empresa> empresas = new ArrayList<>();
+    static public boolean logado;
 
-    public void validaLogin(String email, String senha){
+    public boolean validaLogin(String email, String senha){
         for (User i:users) {
             if(i.getMail()==email) {
                 if (i.getSenha() == senha){
                     Log.i("teste", "validaLogin: deu certo");
+                    return true;
                 }
                     //Toast.makeText(LoginActivity.class,R.string.senha_incorreta,Toast.LENGTH_LONG);
             }
                 //Toast.makeText(LoginActivity.class,R.string.invalid_email,Toast.LENGTH_LONG);
         }
+        return false;
     }
 
-    public void validaCadastro(String email, String senha, String user){
-        String dominio;
-        for (int i = 0; i < email.length(); i++) {
-            if(email[i]=="@"&&email.length()>i+2) {
+    public boolean validaCadastro(String email, String senha, String user){
+        String dominio="kkkkk";
+        boolean deu=false;
+        int aux = email.length();
+        for (int i = 0; i < aux; i++) {
+            if(email.charAt(i)=='@'&&aux>i+2) {
                 dominio=email.substring(i+1);
+                deu=true;
             }
         }
-        if(dominio!="gmail.com"&&dominio!="hotmail.com"&&dominio!="yahoo.com.br"&&dominio!="outlook.com") {
-            for (Empresa i : empresas) {
-                if (dominio == i.getDominio()) {
-                    User usuario = new User(email, senha, user);
-                    usuario.setEmpresa(i.getNome());
+        if(deu) {
+            if (dominio != "gmail.com" && dominio != "hotmail.com" && dominio != "yahoo.com.br" && dominio != "outlook.com") {
+                for (Empresa i : empresas) {
+                    if (dominio != i.getDominio()) {
+                        User usuario = new User(email, senha, user);
+                        usuario.setEmpresaById(i.getId());
+                        return true;
+                    }
                 }
+                return false;
+            }else {
+                return false;
             }
+        }else{
+            return false;
         }
     }
 }

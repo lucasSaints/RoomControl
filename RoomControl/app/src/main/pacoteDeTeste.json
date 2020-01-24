@@ -1,0 +1,77 @@
+{
+  "empresas":[
+    {
+      "nome": "Wise: Fábrica de Softwares",
+      "dominio": "wise.com.br",
+      "salas":[
+        {
+          "nome": "Sala de Coworking",
+          "pcs": 16,
+          "projetor": true,
+          "ac": true
+        },{
+          "nome": "Conselho Jedi",
+          "pcs": 0,
+          "projetor": false,
+          "ac": true
+        },{
+          "nome": "Sala 171",
+          "pcs": 0,
+          "projetor": false,
+          "ac": false
+        },{
+          "nome": "Endar Spire",
+          "pcs": 25,
+          "projetor": true,
+          "ac": true
+        },{
+          "nome": "Tantive IV",
+          "pcs": 6,
+          "projetor": true,
+          "ac": false
+        },{
+        "nome": "Sala 42",
+        "pcs": 7,
+        "projetor": false,
+        "ac": true
+        }
+      ]
+    },{
+      "nome": "Sraw Rats: Fábrica de Hardwares",
+      "domínio": "srawrats.io",
+      "salas": [
+        {
+          "nome": "Vulcão de Mordor",
+          "pcs": 16,
+          "projetor": true,
+          "ac": false,
+          "andar": 7
+        },{
+          "nome": "Minas Ithil",
+          "pcs": 7,
+          "projetor": true,
+          "ac": true,
+          "andar": 1
+        },{
+          "nome": "Barad-dûr",
+          "pcs": 0,
+          "projetor": true,
+          "ac": false,
+          "andar": 1
+        },{
+          "nome": "Gondor",
+          "pcs": 20,
+          "projetor": false,
+          "ac": false,
+          "andar": 2
+        },{
+          "nome": "Condado",
+          "pcs": 50,
+          "projetor": false,
+          "ac": false,
+          "andar": 1
+        }
+      ]
+    }
+  ]
+}

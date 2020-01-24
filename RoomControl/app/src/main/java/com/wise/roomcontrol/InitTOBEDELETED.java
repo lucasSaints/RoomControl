@@ -11,9 +11,11 @@ import com.wise.roomcontrol.classes.Sala;
 import com.wise.roomcontrol.classes.User;
 
 public class InitTOBEDELETED extends AppCompatActivity {
+    final private Dao dao=new Dao();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dao.logado=false;
         Empresa wise=new Empresa("Wise: Fábrica de Softwares","wises.com.br",true);
         Empresa sraw=new Empresa("Sraw Rats: Fábrica de Hardwares","srawrats.io",true);
         Sala cowork=new Sala("Sala de Coworking",16,4,true,true);

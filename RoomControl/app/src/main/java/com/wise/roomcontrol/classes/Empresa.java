@@ -8,6 +8,11 @@ import java.util.List;
 public class Empresa {
     private String nome, dominio;
     private int id;
+
+    public int getId() {
+        return id;
+    }
+
     private List<Sala> salas = new ArrayList<>();
     static private int contadorId=1;
     final private Dao dao=new Dao();
