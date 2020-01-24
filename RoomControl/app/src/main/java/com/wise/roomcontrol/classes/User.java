@@ -29,4 +29,8 @@ public class User {
     public String getSenha() {
         return senha;
     }
+
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
+    }
 }

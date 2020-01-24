@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Room Control</string>
+    <string name="app_name">Room Tracker</string>
     <!-- Strings related to login -->
     <string name="prompt_email">E-mail</string>
     <string name="prompt_password">Senha</string>
@@ -23,4 +23,7 @@
     <string name="precisa_de_projetor">precisa de projetor?</string>
     <string name="precisa_de_ar_condicionado">precisa de ar condicionado?</string>
     <string name="save">Salvar</string>
+    <string name="descricao_logo">Logo do aplicativo: contorno minimalista branco de um olho cuja pupila é mesa de reunião para cinco pessoas.</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="nome_de_usuario">Nome de usuário</string>
 </resources>

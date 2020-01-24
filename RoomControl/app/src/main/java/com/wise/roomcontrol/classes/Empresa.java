@@ -44,4 +44,12 @@ public class Empresa {
         salas.add(sala);
         updateEmpresa(this.nome,this.dominio);
     }
+
+    public String getDominio() {
+        return dominio;
+    }
+
+    public String getNome() {
+        return nome;
+    }
 }
