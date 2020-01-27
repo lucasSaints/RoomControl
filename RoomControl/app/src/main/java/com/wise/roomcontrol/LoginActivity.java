@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(campoLogin.getText().toString()!=null&&campoSenha.getText().toString()!=null){
                     String login = campoLogin.getText().toString();
                     String password = campoSenha.getText().toString();
+                    Log.i("teste", "login: "+login+"    senha: "+password);
                     if(dao.validaLogin(login, password)) {
                         dao.logado=true;
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));

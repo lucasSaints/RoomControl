@@ -16,15 +16,18 @@ public class Dao {
 
     public boolean validaLogin(String email, String senha){
         for (User i:users) {
-            if(i.getMail()==email) {
-                if (i.getSenha() == senha){
+            Log.i("teste", "email: "+i.getMail());
+            if(i.getMail().equals(email)) {
+                if (i.getSenha().equals(senha)){
                     Log.i("teste", "validaLogin: deu certo");
                     return true;
-                }
+                }else
+                    Log.i("teste", "validaLogin: senha incorreta");
                     //Toast.makeText(LoginActivity.class,R.string.senha_incorreta,Toast.LENGTH_LONG);
             }
                 //Toast.makeText(LoginActivity.class,R.string.invalid_email,Toast.LENGTH_LONG);
         }
+        Log.i("teste", "validaLogin: email não cadastrado");
         return false;
     }
 
