@@ -35,7 +35,6 @@ public class LoginActivity extends AppCompatActivity {
                     String password = campoSenha.getText().toString();
                     Log.i("teste", "login: "+login+"    senha: "+password);
                     if(dao.validaLogin(login, password)) {
-                        dao.logado=true;
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     }else
                         Toast.makeText(LoginActivity.this, R.string.login_failed, Toast.LENGTH_SHORT).show();

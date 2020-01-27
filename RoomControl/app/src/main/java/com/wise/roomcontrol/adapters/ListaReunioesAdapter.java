@@ -15,7 +15,7 @@ import java.util.List;
 public class ListaReunioesAdapter extends BaseAdapter {
 
     private Context context;
-    private final List<Reuniao> reunioes = new ArrayList<>();
+    static public final List<Reuniao> reunioes = new ArrayList<>();
 
     public ListaReunioesAdapter(Context context) {
         this.context = context;

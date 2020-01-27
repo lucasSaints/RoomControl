@@ -13,7 +13,7 @@ public class Empresa {
         return id;
     }
 
-    private List<Sala> salas = new ArrayList<>();
+    public List<Sala> salas = new ArrayList<>();
     static private int contadorId=1;
     final private Dao dao=new Dao();
 

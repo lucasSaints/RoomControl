@@ -13,6 +13,10 @@ public class User {
     static private int contadorId=1;
     final private Dao dao=new Dao();
 
+    public int getEmpresaId() {
+        return this.empresaId;
+    }
+
     public User(String mail, String senha, String user) {
         this.mail = mail;
         this.senha = senha;
@@ -23,14 +27,18 @@ public class User {
     }
 
     public String getMail() {
-        return mail;
+        return this.mail;
     }
 
     public String getSenha() {
-        return senha;
+        return this.senha;
     }
 
     public void setEmpresaById(int empresa) {
         this.empresaId = empresa;
+    }
+
+    public String getUser() {
+        return this.user;
     }
 }
