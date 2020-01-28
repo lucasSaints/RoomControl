@@ -5,7 +5,7 @@
     <color name="colorSecondary">#702127</color>
     <color name="colorDesaturated">#361417</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="colorText">#FCFBF4</color>
+    <color name="colorText">#FBF9F0</color>
     <color name="colorGreyText">#B29194</color>
     <color name="colorFakeBlack">#0E0017</color>
 </resources>

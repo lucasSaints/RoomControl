@@ -3,6 +3,7 @@ package com.wise.roomcontrol;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,7 +16,11 @@ public class InitTOBEDELETED extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dao.logado=false;
+        if (android.os.Build.VERSION.SDK_INT > 9){
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        dao.logado=null;
         Empresa wise=new Empresa("Wise: Fábrica de Softwares","wises.com.br",true);
         Empresa sraw=new Empresa("Sraw Rats: Fábrica de Hardwares","srawrats.io",true);
         Sala cowork=new Sala("Sala de Coworking",16,4,true,true);

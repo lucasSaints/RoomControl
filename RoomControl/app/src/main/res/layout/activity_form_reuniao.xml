@@ -18,8 +18,15 @@
         app:srcCompat="@color/colorDesaturated" />
 
     <ScrollView
+        android:id="@+id/elderscroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/fundo"
+        app:layout_constraintEnd_toEndOf="@id/fundo"
+        app:layout_constraintStart_toStartOf="@id/fundo"
+        app:layout_constraintTop_toTopOf="@id/fundo">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -49,6 +56,7 @@
                 android:ems="10"
                 android:hint="@string/insira_breve_descricao_reuniao"
                 android:inputType="textPersonName"
+                android:textColor="@color/colorText"
                 android:textColorHint="@color/colorGreyText"
                 app:layout_constraintEnd_toEndOf="@+id/fundoCalend"
                 app:layout_constraintStart_toStartOf="@+id/fundoCalend"
@@ -170,7 +178,7 @@
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="@+id/switchAC"
                 app:layout_constraintStart_toStartOf="@+id/switchAC"
-                app:layout_constraintTop_toBottomOf="@+id/switchProjetor" />
+                app:layout_constraintTop_toBottomOf="@+id/switchAC" />
 
             <Spinner
                 android:id="@+id/dropdown"
@@ -195,6 +203,7 @@
                 android:background="@color/colorText"
                 android:elevation="7dp"
                 android:text="@string/save"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/fundoCalend"
                 app:layout_constraintStart_toStartOf="@+id/fundoCalend"
                 app:layout_constraintTop_toBottomOf="@+id/dropdown" />

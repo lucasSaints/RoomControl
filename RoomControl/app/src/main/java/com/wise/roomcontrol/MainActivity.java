@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         botao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(dao.logado)
+                if(dao.logado!=null)
                     startActivity(new Intent(MainActivity.this,FormReuniaoActivity.class));
                 else {
                     builder.setTitle("Erro").setMessage("Você precisa estar logado para locar uma sala").show();

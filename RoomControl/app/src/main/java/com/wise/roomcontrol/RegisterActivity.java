@@ -30,13 +30,14 @@ public class RegisterActivity extends AppCompatActivity {
         campoLogin=findViewById(R.id.email);
         campoSenha=findViewById(R.id.password);
         campoUser=findViewById(R.id.username);
-        ArrayAdapter<String> aux = new ArrayAdapter<String>(this, R.layout.dialoglist);
+        ArrayAdapter<String> aux = new ArrayAdapter<>(this, R.layout.dialoglist);
         for (int i=0;i<dao.empresas.size();i++){
             aux.add(dao.empresas.get(i).getNome());
             Log.i("teste", "HA "+dao.empresas.get(i).getNome()+" = "+aux.getItem(i));
         }
         final ArrayAdapter<String> nomesEmpresas=aux;
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Não foi possível detectar a qual empresa trabalha. Favor escolher entre uma listada");
         builder.setAdapter(nomesEmpresas, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -48,13 +49,11 @@ public class RegisterActivity extends AppCompatActivity {
         botao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("teste", "HA "+dao.empresas.get(0).getNome()+" = "+nomesEmpresas.getItem(0));
                 Log.i("teste", "clicado");
                 if(dao.validaCadastro(campoLogin.getText().toString(),campoSenha.getText().toString(),campoUser.getText().toString())){
                     Log.i("teste", "cadastro validado");
                     finish();
                 }else{
-                    Toast.makeText(RegisterActivity.this,"Não foi possível detectar a qual empresa trabalha. Favor escolher entre uma listada.",Toast.LENGTH_LONG);
                     AlertDialog alert = builder.create();
                     alert.show();
                 }
