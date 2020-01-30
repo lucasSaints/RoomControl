@@ -21,8 +21,8 @@ public class InitTOBEDELETED extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
         }
         dao.logado=null;
-        Empresa wise=new Empresa("Wise: Fábrica de Softwares","wises.com.br",true);
-        Empresa sraw=new Empresa("Sraw Rats: Fábrica de Hardwares","srawrats.io",true);
+        Empresa wise=new Empresa("Wise: Fábrica de Softwares","wises.com.br",'M',true);
+        Empresa sraw=new Empresa("Sraw Rats: Fábrica de Hardwares","srawrats.io",'M',true);
         Sala cowork=new Sala("Sala de Coworking",16,4,true,true);
         wise.addSala(cowork);
         Sala jedi=new Sala("Conselho Jedi",0,3,false,true);

@@ -48,14 +48,14 @@ public class ListaReunioesAdapter extends BaseAdapter {
         locator.setText("~"+reuniao.getLocador());                   //  ''     ''     ''     ''     ''     ''
         TextView descri = viewCriada.findViewById(R.id.descrp);//Insere texto de descrição da reunião
         descri.setText(reuniao.getDescricao());                //   ''      ''      ''       ''
-        TextView dia=viewCriada.findViewById(R.id.data);  //¬
-        String auxString="";                                 //
-        if(reuniao.getData(0)<10)                            //
-            auxString="0";                                   //
-        auxString+=reuniao.getData(0)+"/";                   //  Formata e insere texto de data
-        if(reuniao.getData(1)<10)                            //
-            auxString+="0";                                  //
-        auxString+=reuniao.getData(1)+"/"+reuniao.getData(2);//
+        TextView dia=viewCriada.findViewById(R.id.data);      //¬
+        String auxString="";                                   //
+        if(reuniao.getData(0)<10)                              //
+            auxString="0";                                     //
+        auxString+=reuniao.getData(0)+"/";                     //  Formata e insere texto de data
+        if(reuniao.getData(1)<10)                              //
+            auxString+="0";                                    //
+        auxString+=reuniao.getData(1)+"/"+reuniao.getData(2);  //
         dia.setText(auxString);                               //¬
         TextView horario=viewCriada.findViewById(R.id.horario);                                           //  Formata e insere texto de horário
         horario.setText(reuniao.getHorario(reuniao.getHora1())+" - "+reuniao.getHorario(reuniao.getHora2())); //   ''      ''       ''      ''

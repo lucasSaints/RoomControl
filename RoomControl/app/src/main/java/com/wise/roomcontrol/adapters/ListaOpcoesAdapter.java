@@ -47,7 +47,7 @@ public class ListaOpcoesAdapter extends BaseAdapter {
     public void atualiza(int empresaID,int pcs, boolean projet, boolean ac) {
         if(listaFiltrada!=null)
             listaFiltrada.clear();
-        Empresa aux=new Empresa("Phantom","opera.com",false);
+        Empresa aux=new Empresa("Phantom","opera.com",'M',false);
         boolean auxBool=false;
         for (Empresa i:dao.empresas) {
             if(i.getId()==empresaID){
