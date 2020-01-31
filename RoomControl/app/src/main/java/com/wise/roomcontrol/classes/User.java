@@ -26,6 +26,14 @@ public class User {
         contadorId++;
     }
 
+    public User(String mail, String senha, String user, int empresaId, int id) {
+        this.mail = mail;
+        this.senha = senha;
+        this.user = user;
+        this.empresaId = empresaId;
+        this.id = id;
+    }
+
     public String getMail() {
         return this.mail;
     }

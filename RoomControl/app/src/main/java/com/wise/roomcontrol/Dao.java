@@ -1,11 +1,14 @@
 package com.wise.roomcontrol;
 
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.wise.roomcontrol.classes.Empresa;
 import com.wise.roomcontrol.classes.Reuniao;
 import com.wise.roomcontrol.classes.User;
+
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -21,7 +24,57 @@ public class Dao {
     static public List<Empresa> empresas = new ArrayList<>();
     //static public List<Reuniao> reunioes = new ArrayList<>();
     static public User logado;
-    static final private String urlWS = "http://172.30.248.111:8080/ReservaDeSala/rest/usuario/login/";
+    static final private String urlWS = "http://172.30.248.111:8080/ReservaDeSala/rest/";
+
+    public String ServerInOutput(boolean in, String urlEnd, String[] variable, Object[] value) throws Exception{
+        try{
+            JSONObject json = new JSONObject();
+            String jsonEncoded="kyugasdykgufsdgkutsdagfiu";
+            if(in) {
+                for(int i=0;i<value.length;i++){
+                    json.put(variable[i], value[i]);
+                }
+                System.out.println("\n\n\n" + json.toString());
+                jsonEncoded = Base64.encodeToString(json.toString().getBytes("UTF-8"), Base64.NO_WRAP);
+
+                Log.i("teste", "ServerInOutput: "+jsonEncoded);
+            }
+
+            StringBuilder result = new StringBuilder();
+            URL url = new URL(urlWS+urlEnd);
+            System.out.println(url);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            if(in)
+                conn.setRequestMethod("POST");
+            else
+                conn.setRequestMethod("GET");
+            if(in)
+                conn.setDoOutput(true);
+            conn.setRequestProperty("authorization", "secret");
+            if(!in){
+                for(int i=0;i<value.length;i++){
+                    conn.setRequestProperty(variable[i], String.valueOf(value[i]));
+                }
+            }else{
+                conn.setRequestProperty(variable[variable.length-1], jsonEncoded);
+            }
+            conn.connect();
+
+            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line;
+            while ((line = rd.readLine()) != null) {
+                System.out.println(line);
+                result.append(line);
+            }
+            rd.close();
+            Log.i("teste", "ServerInOutput: "+result.toString());
+            return result.toString();
+
+        }catch(Exception e){
+            e.printStackTrace();
+            return "400";
+        }
+    }
 
     public boolean validaLogin(String email, String senha){
         if(users!=null) {
@@ -52,15 +105,14 @@ public class Dao {
             e.printStackTrace();
         }
         if(returnLogin.contains("Login efetuado com sucesso!")) {
-            //logado=
             return true;
         }
         Log.i("teste", "validaLogin: email não cadastrado");
         return false;
     }
 
-    public boolean validaCadastro(String email, String senha, String user){
-        String dominio="kkkkk";
+    public String validaCadastro(String email, String senha, String user, int idOrg){
+        /*String dominio="kkkkk";
         boolean deu=false;
         int aux = email.length();
         Log.i("teste", "validaCadastro: entrou");
@@ -111,6 +163,42 @@ public class Dao {
             wr.write( postData );
             return true;
         }*/
+        /*String[] valores={email,senha,user}, variaveis={"email","senha","nome"};
+        try {
+            return ServerInOutput(true, "usuario/cadastro", variaveis, valores).equals("Usuário criado com sucesso");
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }*/
+        try {
+            StringBuilder result = new StringBuilder();
+            JSONObject userJson = new JSONObject();
+            userJson.put("email", email);
+            userJson.put("senha", senha);
+            userJson.put("nome", user);
+            userJson.put("idOrganizacao", idOrg);
+            System.out.println("\n\n\n" + userJson.toString());
+            String userEncoded = Base64.encodeToString(userJson.toString().getBytes("UTF-8"),Base64.NO_WRAP);
+            System.out.println(userEncoded);
+            URL url = new URL(urlWS+"usuario/cadastro/");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("authorization", "secret");
+            conn.setRequestProperty("novoUsuario", userEncoded);
+            conn.setDoOutput(true);
+
+            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line;
+            while ((line = rd.readLine()) != null) {
+                result.append(line);
+            }
+            rd.close();
+            System.out.println(result.toString());
+            return result.toString();
+        }catch (Exception e){
+            e.printStackTrace();
+            return "Exception";
+        }
     }
 
     public static String makeAuthRequest(String email, String password) throws Exception {
@@ -134,7 +222,7 @@ public class Dao {
 
         try {
             StringBuilder result = new StringBuilder();
-            URL url = new URL(urlWS);
+            URL url = new URL(urlWS+"usuario/login/");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("authorization", "secret");

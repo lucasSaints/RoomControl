@@ -17,6 +17,11 @@ public class ListaReunioesAdapter extends BaseAdapter {
     private Context context;
     static public final List<Reuniao> reunioes = new ArrayList<>();
 
+    public ListaReunioesAdapter(Context context, List<Reuniao> reuniaos) {
+        this.context = context;
+        this.atualiza(reuniaos);
+    }
+
     public ListaReunioesAdapter(Context context) {
         this.context = context;
     }
