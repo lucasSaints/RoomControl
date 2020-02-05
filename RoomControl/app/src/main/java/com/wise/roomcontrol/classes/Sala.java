@@ -1,13 +1,13 @@
 package com.wise.roomcontrol.classes;
 
 public class Sala {
-    private String name;
-    private int pcs, andar;
+    private String name, andar;
+    private int pcs;
     private boolean projetor, ac;
     private int id;
     static private int contador=1;
 
-    public Sala(String name, int pcs, int andar, boolean projetor, boolean ac) {
+    public Sala(String name, int pcs, String andar, boolean projetor, boolean ac) {
         this.name = name;
         this.pcs = pcs;
         this.andar = andar;
@@ -25,7 +25,7 @@ public class Sala {
         return this.pcs;
     }
 
-    public int getAndar() {
+    public String getAndar() {
         return this.andar;
     }
 

@@ -7,8 +7,15 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.wise.roomcontrol.Dao;
 import com.wise.roomcontrol.R;
+import com.wise.roomcontrol.classes.Empresa;
 import com.wise.roomcontrol.classes.Reuniao;
+import com.wise.roomcontrol.classes.Sala;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +23,7 @@ public class ListaReunioesAdapter extends BaseAdapter {
 
     private Context context;
     static public final List<Reuniao> reunioes = new ArrayList<>();
+    private Dao dao=new Dao();
 
     public ListaReunioesAdapter(Context context, List<Reuniao> reuniaos) {
         this.context = context;
@@ -72,4 +80,5 @@ public class ListaReunioesAdapter extends BaseAdapter {
         this.reunioes.addAll(reuniaos);
         notifyDataSetChanged();
     }
+
 }

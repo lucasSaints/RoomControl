@@ -49,4 +49,8 @@ public class User {
     public String getUser() {
         return this.user;
     }
+
+    public int getId() {
+        return id;
+    }
 }
