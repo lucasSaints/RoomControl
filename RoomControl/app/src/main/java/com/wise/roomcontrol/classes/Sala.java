@@ -37,6 +37,10 @@ public class Sala {
         return this.id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public boolean temAc() {
         return this.ac;
     }

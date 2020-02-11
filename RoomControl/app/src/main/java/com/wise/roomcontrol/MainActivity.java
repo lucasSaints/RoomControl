@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ListView lista = findViewById(R.id.listareunioes);
         adapter = new ListaReunioesAdapter(MainActivity.this);
+        adapter.atualiza();
         lista.setAdapter(adapter);
         final Button botao = findViewById(R.id.addButton);
         botao.setOnClickListener(new View.OnClickListener() {
@@ -34,5 +35,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.atualiza();
     }
 }

@@ -5,20 +5,25 @@ public class Reuniao {
     private Sala lugar;
     private int[] data;
     private int[] hora1, hora2;
-    private int computadores;
-    private boolean ac, projetor;
-    private int empresaId;
+    //private int computadores;
+    //private boolean ac, projetor;
+    private int id;
 
-    public Reuniao(String descricao, String locador, Sala lugar, int[] data, int[] hora1, int[] hora2, int computadores, boolean ac, boolean projetor) {
+    public Reuniao(String descricao, String locador, Sala lugar, int[] data, int[] hora1, int[] hora2) {
         this.descricao = descricao;
         this.locador = locador;
         this.lugar = lugar;
         this.data = data;
         this.hora1 = hora1;
         this.hora2 = hora2;
-        this.computadores = computadores;
-        this.ac = ac;
-        this.projetor = projetor;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getDescricao() {
@@ -46,22 +51,13 @@ public class Reuniao {
     }
 
     public String getHorario(int[] hora){
-        return hora[0]+":"+hora[1];
-    }
-
-    public int getComputadores() {
-        return computadores;
-    }
-
-    public boolean isAc() {
-        return ac;
-    }
-
-    public boolean isProjetor() {
-        return projetor;
-    }
-
-    public int getEmpresaId() {
-        return empresaId;
+        String horar="";
+        if(hora[0]<10)
+            horar+="0";
+        horar+=hora[0]+":";
+        if(hora[1]<10)
+            horar+="0";
+        horar+=hora[1];
+        return horar;
     }
 }
