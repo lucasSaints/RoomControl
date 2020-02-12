@@ -1,6 +1,7 @@
 package com.wise.roomcontrol.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ListaReunioesAdapter extends BaseAdapter {
 
@@ -51,6 +53,7 @@ public class ListaReunioesAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ordena();
         View viewCriada = LayoutInflater.from(context).inflate(R.layout.reuniaolista_item, parent, false);
         Reuniao reuniao = reunioes.get(position);
         TextView sala = viewCriada.findViewById(R.id.Sala); // Insere texto de nome da sala
@@ -73,6 +76,44 @@ public class ListaReunioesAdapter extends BaseAdapter {
         TextView horario=viewCriada.findViewById(R.id.horario);                                           //  Formata e insere texto de horário
         horario.setText(reuniao.getHorario(reuniao.getHora1())+" - "+reuniao.getHorario(reuniao.getHora2())); //   ''      ''       ''      ''
         return viewCriada;
+    }
+
+    private void ordena() {
+        /*List<Reuniao> aux = new ArrayList<>();
+        aux.addAll(reunioes);
+        reunioes.clear();
+        for (int i = 0; i < aux.size(); i++) {
+            Reuniao proxima=new Reuniao("","",new Sala("",0,"",false,false),new int[]{4000,12,31},new int[]{22,00},new int[]{23,00});
+            for (int j = 0; j < aux.size(); j++) {
+                Log.i("", "<><><><><><><><><>   ordena: "+aux.get(j).getDataHora(aux.get(j).getHora1())+" comparado a "+proxima.getDataHora(proxima.getHora1()));
+                /*if(aux.get(j).getDataHora(aux.get(j).getHora1()).compareTo(proxima.getDataHora(proxima.getHora1())) < 0){
+                    proxima=aux.get(j);
+                }*/
+                /*if(aux.get(j).getData(2)==proxima.getData(2)){
+                    if(aux.get(j).getData(1)==proxima.getData(1)){
+                        if(aux.get(j).getData(0)==proxima.getData(0)){
+                            if(aux.get(j).getHora1()[0]==proxima.getHora1()[0]){
+                                if(aux.get(j).getHora1()[1]==proxima.getHora1()[1]){
+                                    if(aux.get(j).getLugar().getId()==proxima.getLugar().getId()){
+                                        System.out.println("RoomControl.Exception: BAKA NA! Isso deveria ser impossível!");
+                                        if(new Random().nextInt(2)==1)
+                                            proxima=aux.get(j);
+                                    }else if(aux.get(j).getLugar().getId()<proxima.getLugar().getId())
+                                        proxima=aux.get(j);
+                                }else if(aux.get(j).getHora1()[1]<proxima.getHora1()[1])
+                                    proxima=aux.get(j);
+                            }else if(aux.get(j).getHora1()[0]<proxima.getHora1()[0])
+                                proxima=aux.get(j);
+                        }else if(aux.get(j).getData(0)<proxima.getData(0))
+                            proxima=aux.get(j);
+                    }else if(aux.get(j).getData(1)<proxima.getData(1))
+                        proxima=aux.get(j);
+                }else if(aux.get(j).getData(2)<proxima.getData(2))
+                    proxima=aux.get(j);
+            }
+            reunioes.add(proxima);
+            aux.remove(proxima);
+        }*/
     }
 
 

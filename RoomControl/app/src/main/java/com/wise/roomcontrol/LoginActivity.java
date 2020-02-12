@@ -51,7 +51,9 @@ public class LoginActivity extends AppCompatActivity {
         botaologin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(campoLogin.getText().toString()!=null&&campoSenha.getText().toString()!=null){
+                findViewById(R.id.overlay).setVisibility(View.VISIBLE);
+                findViewById(R.id.loadingProgressBar).setVisibility(View.VISIBLE);
+                if(campoLogin.getText().toString()!=null&&campoSenha.getText().toString()!=null&&campoLogin.getText().toString()!=""&&campoSenha.getText().toString()!=""){
                     String login = campoLogin.getText().toString();
                     String password = campoSenha.getText().toString();
                     Log.i("teste", "login: "+login+"    senha: "+password);
@@ -81,6 +83,8 @@ public class LoginActivity extends AppCompatActivity {
                 }else {
                     Toast.makeText(LoginActivity.this, R.string.login_failed+". Preencha corretamente os campos", Toast.LENGTH_SHORT).show();
                 }
+                findViewById(R.id.overlay).setVisibility(View.GONE);
+                findViewById(R.id.loadingProgressBar).setVisibility(View.GONE);
             }
         });
         final Button botaocadas = findViewById(R.id.register);

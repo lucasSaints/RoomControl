@@ -8,4 +8,5 @@
     <color name="colorText">#FBF9F0</color>
     <color name="colorGreyText">#B29194</color>
     <color name="colorFakeBlack">#0E0017</color>
+    <color name="colorFakeBlackOverlay">#9C0A0010</color>
 </resources>

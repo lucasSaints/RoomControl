@@ -170,6 +170,7 @@ public class FormReuniaoActivity extends AppCompatActivity {
         botaoSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                findViewById(R.id.loadBar).setVisibility(View.VISIBLE);
                 if(descricao!=null&&reuniao!=null){
                     String resultad="";
                     //ListaReunioesAdapter.reunioes.add(reuniao);
@@ -209,6 +210,7 @@ public class FormReuniaoActivity extends AppCompatActivity {
                     }catch (Exception e){
                         e.printStackTrace();
                     }
+                    findViewById(R.id.loadBar).setVisibility(View.INVISIBLE);
                     //dao.ServerInOutput(true,)
                     if(resultad.contains("Reserva realizada com sucesso"))
                         finish();

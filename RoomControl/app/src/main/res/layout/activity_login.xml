@@ -87,8 +87,9 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/register"
                 android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/password"
-                app:layout_constraintStart_toStartOf="@+id/password"
+                app:layout_constraintEnd_toEndOf="@+id/login"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/login"
                 app:layout_constraintTop_toBottomOf="@+id/login" />
 
             <CheckBox
@@ -96,26 +97,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/colorGreyText"
-                app:layout_constraintBottom_toBottomOf="@+id/login"
-                app:layout_constraintEnd_toStartOf="@+id/login"
-                app:layout_constraintHorizontal_bias="0.607"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/password"
-                app:layout_constraintVertical_bias="0.511" />
+                app:layout_constraintBottom_toBottomOf="@id/register"
+                app:layout_constraintEnd_toStartOf="@+id/register"
+                app:layout_constraintHorizontal_bias="0.29"
+                app:layout_constraintStart_toStartOf="@+id/login"
+                app:layout_constraintTop_toBottomOf="@+id/login" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
                 android:text="Lembrar-me"
                 android:textColor="@color/colorText"
                 android:textSize="11sp"
-                app:layout_constraintBottom_toBottomOf="@+id/login"
-                app:layout_constraintEnd_toStartOf="@+id/login"
-                app:layout_constraintHorizontal_bias="0.666"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkBox"
-                app:layout_constraintVertical_bias="0.31" />
+                app:layout_constraintEnd_toEndOf="@+id/checkBox"
+                app:layout_constraintStart_toStartOf="@+id/checkBox"
+                app:layout_constraintTop_toBottomOf="@+id/checkBox" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -124,9 +122,9 @@
         android:id="@+id/skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="26dp"
         android:background="#371C3199"
-        android:padding="4dp"
+        android:padding="8dp"
         android:text="Skip"
         android:textColor="@color/colorText"
         android:textStyle="bold|italic"
@@ -136,6 +134,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView3"
         app:layout_constraintVertical_bias="0.692" />
+
+    <ImageView
+        android:id="@+id/overlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/fundo"
+        app:layout_constraintEnd_toEndOf="@+id/fundo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@color/colorFakeBlackOverlay" />
 
     <ImageView
         android:id="@+id/logo"
@@ -153,5 +163,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.299"
         app:srcCompat="@drawable/roomtracker_logo" />
+
+    <ProgressBar
+        android:id="@+id/loadingProgressBar"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/fundo"
+        app:layout_constraintEnd_toEndOf="@+id/fundo"
+        app:layout_constraintStart_toStartOf="@id/fundo"
+        app:layout_constraintTop_toTopOf="@+id/fundo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

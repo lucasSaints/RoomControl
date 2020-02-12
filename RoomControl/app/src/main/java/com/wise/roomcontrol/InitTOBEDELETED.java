@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import com.wise.roomcontrol.classes.Empresa;
 import com.wise.roomcontrol.classes.Sala;
@@ -21,6 +22,8 @@ public class InitTOBEDELETED extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
         }
         dao.logado=null;
+        //NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID).setSmallIcon(R.drawable.roomtracker_logo).setContentTitle("Reunião")
+          //      .setContentText("Você tem uma reunião hoje.") .setPriority(NotificationCompat.PRIORITY_HIGH);
         Empresa wise=new Empresa("Wise: Fábrica de Softwares","wises.com.br",'M',true);
         Empresa sraw=new Empresa("Sraw Rats: Fábrica de Hardwares","srawrats.io",'M',true);
         Sala cowork=new Sala("Sala de Coworking",16,"4",true,true);

@@ -66,11 +66,13 @@ public class RegisterActivity extends AppCompatActivity {
         botao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                findViewById(R.id.loadingBar).setVisibility(View.VISIBLE);
                 Log.i("teste", "clicado");
                 if(dao.validaCadastro(campoLogin.getText().toString(),campoSenha.getText().toString(),campoUser.getText().toString(),empSelected).equals("Usuário criado com sucesso")){
                     Log.i("teste", "cadastro validado");
                     finish();
                 }else{
+                    findViewById(R.id.loadingBar).setVisibility(View.GONE);
                     /*AlertDialog alert = builder.create();
                     alert.show();*/
                 }

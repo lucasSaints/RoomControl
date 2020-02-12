@@ -1,5 +1,7 @@
 package com.wise.roomcontrol.classes;
 
+import java.util.Date;
+
 public class Reuniao {
     private String descricao,locador;
     private Sala lugar;
@@ -59,5 +61,9 @@ public class Reuniao {
             horar+="0";
         horar+=hora[1];
         return horar;
+    }
+
+    public Date getDataHora(int[] hor){
+        return new Date(this.data[2],this.data[1],this.data[0],hor[0],hor[1]);
     }
 }
