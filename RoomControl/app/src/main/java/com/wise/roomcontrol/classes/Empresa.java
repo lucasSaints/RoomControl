@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Empresa {
-    private String nome, dominio;
+    private String nome, dominio, endereco;
     private int id, ativo;
     private char tipo;
 
@@ -66,5 +66,13 @@ public class Empresa {
 
     public String getNome() {
         return nome;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 }

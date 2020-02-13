@@ -3,17 +3,17 @@ package com.wise.roomcontrol.classes;
 import java.util.Date;
 
 public class Reuniao {
-    private String descricao,locador;
+    private String descricao;
     private Sala lugar;
     private int[] data;
     private int[] hora1, hora2;
     //private int computadores;
     //private boolean ac, projetor;
-    private int id;
+    private int id, locadorId;
 
-    public Reuniao(String descricao, String locador, Sala lugar, int[] data, int[] hora1, int[] hora2) {
+    public Reuniao(String descricao, int locador, Sala lugar, int[] data, int[] hora1, int[] hora2) {
         this.descricao = descricao;
-        this.locador = locador;
+        this.locadorId = locador;
         this.lugar = lugar;
         this.data = data;
         this.hora1 = hora1;
@@ -32,8 +32,8 @@ public class Reuniao {
         return descricao;
     }
 
-    public String getLocador() {
-        return locador;
+    public int getLocadorId() {
+        return locadorId;
     }
 
     public Sala getLugar() {

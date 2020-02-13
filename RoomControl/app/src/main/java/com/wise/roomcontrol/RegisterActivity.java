@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.wise.roomcontrol.adapters.AuxAdapter;
 import com.wise.roomcontrol.adapters.ListaOpcoesAdapter;
 import com.wise.roomcontrol.classes.Empresa;
 import com.wise.roomcontrol.classes.User;
@@ -43,6 +44,10 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        final List<Empresa> lista = new ArrayList();
+
+        final Spinner spi = findViewById(R.id.spinner);
+
         final ListaOpcoesAdapter adapterAux=new ListaOpcoesAdapter(RegisterActivity.this);
         campoLogin=findViewById(R.id.email);
         campoSenha=findViewById(R.id.password);
@@ -67,12 +72,16 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 findViewById(R.id.loadingBar).setVisibility(View.VISIBLE);
+                botao.setEnabled(false);
+                spi.setEnabled(false);
                 Log.i("teste", "clicado");
                 if(dao.validaCadastro(campoLogin.getText().toString(),campoSenha.getText().toString(),campoUser.getText().toString(),empSelected).equals("Usuário criado com sucesso")){
                     Log.i("teste", "cadastro validado");
                     finish();
                 }else{
                     findViewById(R.id.loadingBar).setVisibility(View.GONE);
+                    botao.setEnabled(true);
+                    spi.setEnabled(true);
                     /*AlertDialog alert = builder.create();
                     alert.show();*/
                 }
@@ -80,9 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
         botao.setEnabled(false);
 
-        final List<Empresa> lista = new ArrayList();
 
-        final Spinner spi = findViewById(R.id.spinner);
         spi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -106,8 +113,10 @@ public class RegisterActivity extends AppCompatActivity {
                             Log.i("teste", "onFocusChange: entrou");
                             String[] domArray={loginDom};
                             adapterAux.atualiza(domArray);
-                            ArrayAdapter<String> adapter = new ArrayAdapter<>(RegisterActivity.this, android.R.layout.simple_spinner_item, adapterAux.getAsString(1));
-                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            //ArrayAdapter<String> adapter = new ArrayAdapter<>(RegisterActivity.this, android.R.layout.simple_spinner_item, adapterAux.getAsString(1));
+                            //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            //adapterAux.setTipo(adapterAux.EMPRESAS);
+                            AuxAdapter adapter=new AuxAdapter(adapterAux.getListaEmpresas(),RegisterActivity.this);
                             spi.setAdapter(adapter);
                             spi.setVisibility(View.VISIBLE);
                         }

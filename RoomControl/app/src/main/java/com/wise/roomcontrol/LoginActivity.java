@@ -22,6 +22,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.System.currentTimeMillis;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText campoLogin;
@@ -29,6 +31,9 @@ public class LoginActivity extends AppCompatActivity {
     final private Dao dao=new Dao();
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
+    private int toques=0;
+    private static long msec=0;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 findViewById(R.id.overlay).setVisibility(View.VISIBLE);
                 findViewById(R.id.loadingProgressBar).setVisibility(View.VISIBLE);
+                botaologin.setEnabled(false);
                 if(campoLogin.getText().toString()!=null&&campoSenha.getText().toString()!=null&&campoLogin.getText().toString()!=""&&campoSenha.getText().toString()!=""){
                     String login = campoLogin.getText().toString();
                     String password = campoSenha.getText().toString();
@@ -85,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 findViewById(R.id.overlay).setVisibility(View.GONE);
                 findViewById(R.id.loadingProgressBar).setVisibility(View.GONE);
+                botaologin.setEnabled(true);
             }
         });
         final Button botaocadas = findViewById(R.id.register);
@@ -105,10 +112,25 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        if(msec+1200>currentTimeMillis()) {
+            toques++;
+        }else{
+            toques=0;
+            msec=currentTimeMillis();
+        }
+        if(toques==0){
+            Toast.makeText(LoginActivity.this, "Toque novamente para sair",Toast.LENGTH_SHORT).show();
+        }else{
+            moveTaskToBack(true);
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         if(dao.logado!=null){
-            Toast.makeText(LoginActivity.this,"Sessão finalizada. Favor logar novamente",Toast.LENGTH_LONG);
+            Toast.makeText(LoginActivity.this,"Sessão finalizada. Favor logar novamente",Toast.LENGTH_LONG).show();
             dao.logado=null;
         }
     }

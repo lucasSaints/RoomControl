@@ -10,16 +10,15 @@ import android.widget.TextView;
 
 import com.wise.roomcontrol.Dao;
 import com.wise.roomcontrol.R;
-import com.wise.roomcontrol.classes.Empresa;
 import com.wise.roomcontrol.classes.Reuniao;
 import com.wise.roomcontrol.classes.Sala;
+import com.wise.roomcontrol.classes.User;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class ListaReunioesAdapter extends BaseAdapter {
 
@@ -42,26 +41,38 @@ public class ListaReunioesAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Reuniao getItem(int position) {
         return reunioes.get(position);
     }
 
     @Override
     public long getItemId(int position) {
+        for (int i=0;i<reunioes.size();i++) {
+            Log.i("teste", "getItemId: "+reunioes.get(i).getDescricao()+" - "+reunioes.get(i).getId());
+        }
+        Log.i("teste", "getItemId: o array tem tamanho "+reunioes.size());
+        Log.i("teste", "getItemId: o objeto Reuniao na posicao "+position);
+        Log.i("teste", "getItemId: tem id "+reunioes.get(position).getId());
         return reunioes.get(position).getId();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ordena();
+        //ordena();
         View viewCriada = LayoutInflater.from(context).inflate(R.layout.reuniaolista_item, parent, false);
         Reuniao reuniao = reunioes.get(position);
         TextView sala = viewCriada.findViewById(R.id.Sala); // Insere texto de nome da sala
         sala.setText(reuniao.getLugar().getName());         //    ''      ''       ''
         TextView floor = viewCriada.findViewById(R.id.andar);  // Insere texto de andar
-        floor.setText("Andar: "+reuniao.getLugar().getAndar()); //  ''     ''     ''
-        TextView locator = viewCriada.findViewById(R.id.locador);//Insere texto do username de quem alocou a sala
-        locator.setText("~"+reuniao.getLocador());                   //  ''     ''     ''     ''     ''     ''
+        floor.setText(context.getString(R.string.floor)+": "+reuniao.getLugar().getAndar()); //  ''     ''     ''
+        User u = null;
+        try {
+            JSONObject j = new JSONObject(dao.ServerInOutput(false,"usuario/getById",new String[]{"id"},new Integer[]{reuniao.getLocadorId()}));
+            TextView locator = viewCriada.findViewById(R.id.locador);//Insere texto do username de quem alocou a sala
+            locator.setText("~"+j.getString("nome"));//  ''     ''     ''     ''     ''     ''
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         TextView descri = viewCriada.findViewById(R.id.descrp);//Insere texto de descrição da reunião
         descri.setText(reuniao.getDescricao());                //   ''      ''      ''       ''
         TextView dia=viewCriada.findViewById(R.id.data);      //¬
@@ -135,7 +146,7 @@ public class ListaReunioesAdapter extends BaseAdapter {
                             String descri = obj.getString("descricao");
                             boolean ativo = obj.getBoolean("ativo");
                             System.out.println("\n\n\n\n\n"+obj.getInt("idUsuario")+"\n\n\n\n\n");
-                            Object[] u2 = {(Integer) obj.getInt("idUsuario")};
+                            int idUser = obj.getInt("idUsuario");
                             String datahora = obj.getString("dataHoraInicio");
                             String[] data={"","",""}, hora1={"",""}, hora2={"",""};
                             for (int j = 0; j < datahora.indexOf("-"); j++) {
@@ -171,9 +182,9 @@ public class ListaReunioesAdapter extends BaseAdapter {
                                 hour1[0]-=3;
                                 hour2[0]-=3;
                             }*/
-                            JSONObject user = new JSONObject(dao.ServerInOutput(false, "usuario/getById", u1, u2));
+                            //JSONObject user = new JSONObject(dao.ServerInOutput(false, "usuario/getById", u1, u2));
                             if(ativo) {
-                                Reuniao newReuniao = new Reuniao(descri,user.getString("nome"),sala,date,hour1,hour2);
+                                Reuniao newReuniao = new Reuniao(descri,idUser,sala,date,hour1,hour2);
                                 newReuniao.setId(id);
                                 reunioes.add(newReuniao);
                             }

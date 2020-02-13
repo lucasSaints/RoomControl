@@ -2,13 +2,16 @@ package com.wise.roomcontrol.adapters;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.wise.roomcontrol.Dao;
+import com.wise.roomcontrol.R;
 import com.wise.roomcontrol.RegisterActivity;
 import com.wise.roomcontrol.classes.Empresa;
 import com.wise.roomcontrol.classes.Reuniao;
@@ -23,6 +26,8 @@ import java.util.List;
 public class ListaOpcoesAdapter extends BaseAdapter {
 
     private Context context;
+    private int tipo;
+    public final static int EMPRESAS=1, SALAS=2,FILTRO=3;
     static private final List<Empresa> listaEmpresas = new ArrayList();
     //private final List<Sala> listaSalas=new ArrayList<>();
     private List<Sala> salasNaEmpresa;
@@ -43,7 +48,7 @@ public class ListaOpcoesAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return listaFiltrada.size();
     }
 
     @Override
@@ -58,7 +63,12 @@ public class ListaOpcoesAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+        View viewCriada = LayoutInflater.from(context).inflate(R.layout.opcao_item, parent, false);
+        TextView nomeOpcao = viewCriada.findViewById(R.id.empresaNome);
+        TextView description = viewCriada.findViewById(R.id.empresaLogradouro);
+        nomeOpcao.setText(listaFiltrada.get(position).getName());
+        description.setText(listaFiltrada.get(position).getAndar());
+        return viewCriada;
     }
 
     public void atualiza(String[] dominioAsArray) {
@@ -157,7 +167,7 @@ public class ListaOpcoesAdapter extends BaseAdapter {
     public List<String> getAsString(int indexOfListInClass){
         List<String> listaStr = new ArrayList<>();
         switch (indexOfListInClass){
-            case 1:
+            case EMPRESAS:
                 try{
                 for (Empresa i:listaEmpresas) {
                     listaStr.add(i.getNome());
@@ -166,7 +176,7 @@ public class ListaOpcoesAdapter extends BaseAdapter {
                     return null;
                 }
                 break;
-            case 2:
+            case SALAS:
                 try{
                 for (Sala i:salasNaEmpresa) {
                     listaStr.add(i.getName());
@@ -175,7 +185,7 @@ public class ListaOpcoesAdapter extends BaseAdapter {
                     return null;
                 }
                 break;
-            case 3:
+            case FILTRO:
                 try{
                 for (Sala i:listaFiltrada) {
                     listaStr.add(i.getName());
