@@ -86,11 +86,13 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }else
                         Toast.makeText(LoginActivity.this, R.string.login_failed, Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.overlay).setVisibility(View.GONE);
+                    findViewById(R.id.loadingProgressBar).setVisibility(View.GONE);
                 }else {
                     Toast.makeText(LoginActivity.this, R.string.login_failed+". Preencha corretamente os campos", Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.overlay).setVisibility(View.GONE);
+                    findViewById(R.id.loadingProgressBar).setVisibility(View.GONE);
                 }
-                findViewById(R.id.overlay).setVisibility(View.GONE);
-                findViewById(R.id.loadingProgressBar).setVisibility(View.GONE);
                 botaologin.setEnabled(true);
             }
         });

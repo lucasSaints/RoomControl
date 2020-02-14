@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -25,7 +26,7 @@ public class Dao {
     static public List<Empresa> empresas = new ArrayList<>();
     //static public List<Reuniao> reunioes = new ArrayList<>();
     static public User logado;
-    static final private String urlWS = "http://172.30.248.111:8080/ReservaDeSala/rest/";
+    static final public String urlWS = "http://172.30.248.111:8080/ReservaDeSala/rest/";
 
     public String ServerInOutput(boolean in, String urlEnd, String[] variable, Object[] value) throws Exception{
         try{
@@ -41,7 +42,6 @@ public class Dao {
                 Log.i("teste", "ServerInOutput: "+jsonEncoded);
             }
 
-            StringBuilder result = new StringBuilder();
             URL url = new URL(urlWS+urlEnd);
             System.out.println(url);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -59,22 +59,28 @@ public class Dao {
             }else{
                 conn.setRequestProperty(variable[variable.length-1], jsonEncoded);
             }
+            conn.setConnectTimeout(10000);
             conn.connect();
 
-            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String line;
-            while ((line = rd.readLine()) != null) {
-                System.out.println(line);
-                result.append(line);
-            }
-            rd.close();
-            Log.i("teste", "ServerInOutput: "+result.toString());
-            return result.toString();
+            return getResultString(conn);
 
         }catch(Exception e){
             e.printStackTrace();
             return "400";
         }
+    }
+
+    public String getResultString(HttpURLConnection conn) throws IOException {
+        StringBuilder result = new StringBuilder();
+        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        String line;
+        while ((line = rd.readLine()) != null) {
+            System.out.println(line);
+            result.append(line);
+        }
+        rd.close();
+        Log.i("teste", "ServerInOutput: "+result.toString());
+        return result.toString();
     }
 
     public boolean validaLogin(String email, String senha){
@@ -229,7 +235,7 @@ public class Dao {
             conn.setRequestProperty("authorization", "secret");
             conn.setRequestProperty("email", email);
             conn.setRequestProperty("password", password);
-
+            conn.setConnectTimeout(5000);
             BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line;
             while ((line = rd.readLine()) != null) {

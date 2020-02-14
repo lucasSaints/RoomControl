@@ -99,7 +99,20 @@ public class FormReuniaoActivity extends AppCompatActivity {
                 }
             }
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if(s!=null && s.length()>=4){
+                    if(s.toString().contains(":")){
+                        hora1[0]=Integer.parseInt(s.toString().substring(0,s.toString().indexOf(":")-1));
+                        hora1[1]=Integer.parseInt(s.toString().substring(s.toString().indexOf(":")+1,s.toString().length()-1));
+                    }else if(s.toString().contains(".")){
+                        hora1[0]=Integer.parseInt(s.toString().substring(0,s.toString().indexOf(".")-1));
+                        hora1[1]=Integer.parseInt(s.toString().substring(s.toString().indexOf(".")+1,s.toString().length()-1));
+                    }else{
+                        hora1[0]=Integer.parseInt(s.toString().substring(0,1));
+                        hora1[1]=Integer.parseInt(s.toString().substring(2,s.toString().length()-1));
+                    }
+                }
+            }
         });
 
         final EditText horaFim=findViewById(R.id.horaText2);
@@ -118,7 +131,19 @@ public class FormReuniaoActivity extends AppCompatActivity {
                 }
             }
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if(s!=null && s.length()>=4){
+                    if(s.toString().contains(":")){
+                        hora2[0]=Integer.parseInt(s.toString().substring(0,s.toString().indexOf(":")-1));
+                        hora2[1]=Integer.parseInt(s.toString().substring(s.toString().indexOf(":")+1,s.toString().length()-1));
+                    }else if(s.toString().contains(".")){
+                        hora2[0]=Integer.parseInt(s.toString().substring(0,s.toString().indexOf(".")-1));
+                        hora2[1]=Integer.parseInt(s.toString().substring(s.toString().indexOf(".")+1,s.toString().length()-1));
+                    }else{
+                        hora2[0]=Integer.parseInt(s.toString().substring(0,1));
+                        hora2[1]=Integer.parseInt(s.toString().substring(2,s.toString().length()-1));
+                    }
+                }}
         });
 
         final EditText pcs=findViewById(R.id.pcText);
@@ -160,7 +185,7 @@ public class FormReuniaoActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 idsala= adapterAux.getItem(position).getId();
-                reuniao = new Reuniao(descricao,dao.logado.getUser(), adapterAux.getItem(position),data,hora1,hora2);
+                reuniao = new Reuniao(descricao,dao.logado.getId(), adapterAux.getItem(position),data,hora1,hora2);
             }
             public void onNothingSelected(AdapterView<?> parent){
             }
@@ -220,7 +245,7 @@ public class FormReuniaoActivity extends AppCompatActivity {
 
                     }
                 }else{
-                    Toast.makeText(FormReuniaoActivity.this,"Um ou mais campos não foi preenchido",Toast.LENGTH_LONG);
+                    Toast.makeText(FormReuniaoActivity.this,"Um ou mais campos não foi preenchido",Toast.LENGTH_LONG).show();
                 }
             }
         });
