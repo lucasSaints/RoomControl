@@ -19,13 +19,34 @@
 
     <ListView
         android:id="@+id/listareunioes"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/fundo"
         app:layout_constraintEnd_toEndOf="@+id/fundo"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/fundo"></ListView>
+        app:layout_constraintStart_toStartOf="@id/fundo"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+    </ListView>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:foregroundGravity="clip_horizontal"
+        android:gravity="center_horizontal"
+        android:minHeight="?attr/actionBarSize"
+        android:scrollbarSize="4dp"
+        android:theme="?attr/actionBarTheme"
+        app:buttonGravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="@id/fundo"
+        app:layout_constraintStart_toStartOf="@id/fundo"
+        app:layout_constraintTop_toTopOf="@+id/fundo"
+        app:subtitleTextColor="?attr/colorButtonNormal"
+        app:titleTextAppearance="@style/Title"
+        app:titleTextColor="@color/colorText" />
 
     <Button
         android:id="@+id/addButton"

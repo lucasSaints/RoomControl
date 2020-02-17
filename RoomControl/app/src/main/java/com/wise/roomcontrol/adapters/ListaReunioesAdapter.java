@@ -9,12 +9,14 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.wise.roomcontrol.Dao;
+import com.wise.roomcontrol.MainActivity;
 import com.wise.roomcontrol.R;
 import com.wise.roomcontrol.classes.Reuniao;
 import com.wise.roomcontrol.classes.Sala;
 import com.wise.roomcontrol.classes.User;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -132,70 +134,91 @@ public class ListaReunioesAdapter extends BaseAdapter {
         reunioes.clear();
         String[] a1 ={"id_sala"};
         String[] u1 ={"id"};
-        ListaOpcoesAdapter opcoes=new ListaOpcoesAdapter();
-        opcoes.filtraSalas(dao.logado.getEmpresaId(),0,false,false);
-        try{
-            for (Sala sala:opcoes.getListaFiltrada()) {
-                Object[] a2 = {(Integer) sala.getId()};
-                JSONArray k = new JSONArray(dao.ServerInOutput(false, "reserva/byIdSala", a1, a2));
-                if(k.length()>0){
-                    for (int i=0;i<k.length();i++){
-                        JSONObject obj=k.getJSONObject(i);
-                        if(obj.has("id")&&obj.has("descricao")&&obj.has("ativo")&&obj.has("idUsuario")){
-                            int id=obj.getInt("id");
-                            String descri = obj.getString("descricao");
-                            boolean ativo = obj.getBoolean("ativo");
-                            System.out.println("\n\n\n\n\n"+obj.getInt("idUsuario")+"\n\n\n\n\n");
-                            int idUser = obj.getInt("idUsuario");
-                            String datahora = obj.getString("dataHoraInicio");
-                            String[] data={"","",""}, hora1={"",""}, hora2={"",""};
-                            for (int j = 0; j < datahora.indexOf("-"); j++) {
-                                data[2]+=datahora.charAt(j);
-                            }
-                            System.out.println("ano: "+data[2]);
-                            for (int j = datahora.indexOf("-")+1; j < datahora.indexOf("-",data[2].length()+1); j++) {
-                                data[1]+=datahora.charAt(j);
-                            }
-                            System.out.println("mes: "+data[1]);
-                            for (int j = datahora.indexOf("-",data[2].length()+1)+1; j < datahora.indexOf("T"); j++) {
-                                data[0]+=datahora.charAt(j);
-                            }
-                            System.out.println("dia: "+data[0]);
-                            for (int j = datahora.indexOf("T")+1; j < datahora.indexOf(":"); j++) {
-                                hora1[0]+=datahora.charAt(j);
-                            }
-                            for (int j = datahora.indexOf(":")+1; j < datahora.indexOf("Z")-3; j++) {
-                                hora1[1]+=datahora.charAt(j);
-                            }
-                            System.out.println("hora de inicio: "+hora1[0]+":"+hora1[1]);
-                            datahora = obj.getString("dataHoraFim");
-                            for (int j = datahora.indexOf("T")+1; j < datahora.indexOf(":"); j++) {
-                                hora2[0]+=datahora.charAt(j);
-                            }
-                            for (int j = datahora.indexOf(":")+1; j < datahora.indexOf("Z")-3; j++) {
-                                hora2[1]+=datahora.charAt(j);
-                            }
-                            System.out.println("hora de termino: "+hora2[0]+":"+hora2[1]);
-                            System.out.println(datahora);
-                            int[] hour1={Integer.parseInt(hora1[0]),Integer.parseInt(hora1[1])}, hour2={Integer.parseInt(hora2[0]),Integer.parseInt(hora2[1])}, date={Integer.parseInt(data[0]),Integer.parseInt(data[1]),Integer.parseInt(data[2])};
-                            /*if(datahora.contains("UTC")){
-                                hour1[0]-=3;
-                                hour2[0]-=3;
-                            }*/
-                            //JSONObject user = new JSONObject(dao.ServerInOutput(false, "usuario/getById", u1, u2));
-                            if(ativo) {
-                                Reuniao newReuniao = new Reuniao(descri,idUser,sala,date,hour1,hour2);
-                                newReuniao.setId(id);
-                                reunioes.add(newReuniao);
-                            }
+        if(MainActivity.onlyLogado) {
+            ListaOpcoesAdapter opcoes = new ListaOpcoesAdapter();
+            opcoes.filtraSalas(dao.logado.getEmpresaId(), 0, false, false);
+            try {
+                for (Sala sala : opcoes.getListaFiltrada()) {
+                    Object[] a2 = {(Integer) sala.getId()};
+                    JSONArray k = new JSONArray(dao.ServerInOutput(false, "reserva/byIdSala", a1, a2));
+                    if (k.length() > 0) {
+                        for (int i = 0; i < k.length(); i++) {
+                            JSONObject obj = k.getJSONObject(i);
+                            jsonArrayToObject(sala, obj);
                         }
                     }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        }catch (Exception e){
-            e.printStackTrace();
+        }else{
+            try{
+                JSONArray k = new JSONArray(dao.ServerInOutput(false, "reserva/byIdUsuario",new String[]{"id_usuario"},new Integer[]{dao.logado.getId()}));
+                if(k.length()>0){
+                    for (int i = 0; i < k.length(); i++) {
+                        JSONObject obj = k.getJSONObject(i);
+                        JSONObject objec = new JSONObject(dao.ServerInOutput(false,"sala/getById",new String[]{"id"},new Integer[]{obj.getInt("idSala")}));
+                        System.out.println(objec);
+                        Sala salinha = new Sala(objec.getString("nome"),0,objec.getString("localizacao"),objec.getBoolean("possuiMultimidia"),objec.getBoolean("possuiArcon"));
+                        jsonArrayToObject(salinha,obj);
+                    }
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
         notifyDataSetChanged();
+    }
+
+    public void jsonArrayToObject(Sala sala, JSONObject obj) throws JSONException {
+        if (obj.has("id") && obj.has("descricao") && obj.has("ativo") && obj.has("idUsuario")) {
+            int id = obj.getInt("id");
+            String descri = obj.getString("descricao");
+            boolean ativo = obj.getBoolean("ativo");
+            System.out.println("\n\n\n\n\n" + obj.getInt("idUsuario") + "\n\n\n\n\n");
+            int idUser = obj.getInt("idUsuario");
+            String datahora = obj.getString("dataHoraInicio");
+            String[] data = {"", "", ""}, hora1 = {"", ""}, hora2 = {"", ""};
+            for (int j = 0; j < datahora.indexOf("-"); j++) {
+                data[2] += datahora.charAt(j);
+            }
+            System.out.println("ano: " + data[2]);
+            for (int j = datahora.indexOf("-") + 1; j < datahora.indexOf("-", data[2].length() + 1); j++) {
+                data[1] += datahora.charAt(j);
+            }
+            System.out.println("mes: " + data[1]);
+            for (int j = datahora.indexOf("-", data[2].length() + 1) + 1; j < datahora.indexOf("T"); j++) {
+                data[0] += datahora.charAt(j);
+            }
+            System.out.println("dia: " + data[0]);
+            for (int j = datahora.indexOf("T") + 1; j < datahora.indexOf(":"); j++) {
+                hora1[0] += datahora.charAt(j);
+            }
+            for (int j = datahora.indexOf(":") + 1; j < datahora.indexOf("Z") - 3; j++) {
+                hora1[1] += datahora.charAt(j);
+            }
+            System.out.println("hora de inicio: " + hora1[0] + ":" + hora1[1]);
+            datahora = obj.getString("dataHoraFim");
+            for (int j = datahora.indexOf("T") + 1; j < datahora.indexOf(":"); j++) {
+                hora2[0] += datahora.charAt(j);
+            }
+            for (int j = datahora.indexOf(":") + 1; j < datahora.indexOf("Z") - 3; j++) {
+                hora2[1] += datahora.charAt(j);
+            }
+            System.out.println("hora de termino: " + hora2[0] + ":" + hora2[1]);
+            System.out.println(datahora);
+            int[] hour1 = {Integer.parseInt(hora1[0]), Integer.parseInt(hora1[1])}, hour2 = {Integer.parseInt(hora2[0]), Integer.parseInt(hora2[1])}, date = {Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])};
+        /*if(datahora.contains("UTC")){
+            hour1[0]-=3;
+            hour2[0]-=3;
+        }*/
+            //JSONObject user = new JSONObject(dao.ServerInOutput(false, "usuario/getById", u1, u2));
+            if (ativo) {
+                Reuniao newReuniao = new Reuniao(descri, idUser, sala, date, hour1, hour2);
+                newReuniao.setId(id);
+                reunioes.add(newReuniao);
+            }
+        }
     }
 
 }
