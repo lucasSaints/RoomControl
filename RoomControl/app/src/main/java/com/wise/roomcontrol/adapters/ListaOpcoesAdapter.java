@@ -30,7 +30,7 @@ public class ListaOpcoesAdapter extends BaseAdapter {
     public final static int EMPRESAS=1, SALAS=2,FILTRO=3;
     static private final List<Empresa> listaEmpresas = new ArrayList();
     //private final List<Sala> listaSalas=new ArrayList<>();
-    private List<Sala> salasNaEmpresa;
+    public List<Sala> salasNaEmpresa;
     private List<String> listaDeStrings=new ArrayList<>();
     private List<Sala> listaFiltrada=new ArrayList<>();
     private final Dao dao=new Dao();
@@ -97,7 +97,7 @@ public class ListaOpcoesAdapter extends BaseAdapter {
         }
     }
 
-    private void refresco() {
+    public void refresco() {
         listaDeStrings.clear();
         salasNaEmpresa=new ArrayList<>();
         String[] a1 ={"id_organizacao"}, a2={String.valueOf(dao.logado.getEmpresaId())};

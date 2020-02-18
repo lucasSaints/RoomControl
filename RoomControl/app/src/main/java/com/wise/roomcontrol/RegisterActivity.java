@@ -2,8 +2,11 @@ package com.wise.roomcontrol;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -38,12 +41,36 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText campoSenha;
     private EditText campoUser;
     int empSelected;
+    private String loginDom="";
     final private Dao dao=new Dao();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        boolean status=false;
+        try{
+            ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = cm.getNetworkInfo(0);
+            if (netInfo != null && netInfo.getState()==NetworkInfo.State.CONNECTED) {
+                status= true;
+            }else {
+                netInfo = cm.getNetworkInfo(1);
+                if(netInfo!=null && netInfo.getState()== NetworkInfo.State.CONNECTED)
+                    status= true;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        if(!status){
+            final AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+            builder.setMessage("Não foi possível conectar-se a Internet. Certifique-se que a conexão wi-fi ou dados móveis esteja(m) ativada(os).").setTitle("Erro de conexão").setCancelable(false).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            }).show();
+        }
         final List<Empresa> lista = new ArrayList();
 
         final Spinner spi = findViewById(R.id.spinner);
@@ -75,15 +102,21 @@ public class RegisterActivity extends AppCompatActivity {
                 botao.setEnabled(false);
                 spi.setEnabled(false);
                 Log.i("teste", "clicado");
-                if(dao.validaCadastro(campoLogin.getText().toString(),campoSenha.getText().toString(),campoUser.getText().toString(),empSelected).equals("Usuário criado com sucesso")){
-                    Log.i("teste", "cadastro validado");
-                    finish();
+                if(!campoSenha.getText().toString().isEmpty()&&campoSenha.getText().toString().length()>=3) {
+                    if(!campoLogin.getText().toString().isEmpty()&&!campoUser.getText().toString().isEmpty()) {
+                        if (dao.validaCadastro(campoLogin.getText().toString(), campoSenha.getText().toString(), campoUser.getText().toString(), empSelected).equals("Usuário criado com sucesso")) {
+                            Log.i("teste", "cadastro validado");
+                            finish();
+                        } else {
+                            findViewById(R.id.loadingBar).setVisibility(View.GONE);
+                            botao.setEnabled(true);
+                            spi.setEnabled(true);
+                        }
+                    }else{
+                        Toast.makeText(RegisterActivity.this, getString(R.string.preencha_corretamente),Toast.LENGTH_SHORT);
+                    }
                 }else{
-                    findViewById(R.id.loadingBar).setVisibility(View.GONE);
-                    botao.setEnabled(true);
-                    spi.setEnabled(true);
-                    /*AlertDialog alert = builder.create();
-                    alert.show();*/
+                    Toast.makeText(RegisterActivity.this, getString(R.string.senha_min_3_carac),Toast.LENGTH_SHORT);
                 }
             }
         });
@@ -105,10 +138,10 @@ public class RegisterActivity extends AppCompatActivity {
         campoLogin.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus) {
+                if(!hasFocus&&campoLogin.getText().toString().contains("@")&&!loginDom.equals(campoLogin.getText().toString().substring(campoLogin.getText().toString().indexOf('@')+1))) {
                     String loginAuxiliar = campoLogin.getText().toString();
-                    if(loginAuxiliar.contains("@")){
-                        String loginDom = loginAuxiliar.substring(loginAuxiliar.indexOf('@')+1);
+                    //if(loginAuxiliar.contains("@")){
+                        loginDom = loginAuxiliar.substring(loginAuxiliar.indexOf('@')+1);
                         if(loginDom.contains(".")&&loginDom.length()>loginDom.indexOf('.')+2){
                             Log.i("teste", "onFocusChange: entrou");
                             String[] domArray={loginDom};
@@ -120,7 +153,7 @@ public class RegisterActivity extends AppCompatActivity {
                             spi.setAdapter(adapter);
                             spi.setVisibility(View.VISIBLE);
                         }
-                    }
+                    //}
                 }
             }
         });

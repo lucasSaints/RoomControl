@@ -25,4 +25,6 @@
     <string name="remove">Remover</string>
     <string name="floor">Andar</string>
     <string name="press_again_signout">Toque novamente para deslogar</string>
+    <string name="preencha_corretamente">Preencha os dados corretamente</string>
+    <string name="senha_min_3_carac">Sua senha precisa ter no mínimo 3 caracteres</string>
 </resources>

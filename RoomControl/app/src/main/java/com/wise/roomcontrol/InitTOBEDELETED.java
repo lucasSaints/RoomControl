@@ -1,8 +1,10 @@
 package com.wise.roomcontrol;
 
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,13 +25,6 @@ public class InitTOBEDELETED extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         dao.logado=null;
-        /*if(Build.VERSION.SDK_INT>=26) {
-            NotificationChannel channel = new NotificationChannel(1, "canal", NotificationManager.IMPORTANCE_DEFAULT );
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, 1).setSmallIcon(R.drawable.roomtracker_logo).setContentTitle("Reunião")
-                    .setContentText("Você tem uma reunião hoje").setPriority(NotificationCompat.PRIORITY_HIGH);
-        }*/
         Empresa wise=new Empresa("Wise: Fábrica de Softwares","wises.com.br",'M',true);
         Empresa sraw=new Empresa("Sraw Rats: Fábrica de Hardwares","srawrats.io",'M',true);
         Sala cowork=new Sala("Sala de Coworking",16,"4",true,true);
@@ -56,5 +51,6 @@ public class InitTOBEDELETED extends AppCompatActivity {
         sraw.addSala(shire);
         User clov=new User("clovis@wises.com.br","maturity3","Clovis");
         startActivity(new Intent(this,LoginActivity.class));
+        finish();
     }
 }

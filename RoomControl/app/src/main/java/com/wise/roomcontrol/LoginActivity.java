@@ -85,11 +85,11 @@ public class LoginActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }else
-                        Toast.makeText(LoginActivity.this, R.string.login_failed, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Login inválido", Toast.LENGTH_SHORT).show();
                     findViewById(R.id.overlay).setVisibility(View.GONE);
                     findViewById(R.id.loadingProgressBar).setVisibility(View.GONE);
                 }else {
-                    Toast.makeText(LoginActivity.this, R.string.login_failed+". Preencha corretamente os campos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, getString(R.string.preencha_corretamente), Toast.LENGTH_SHORT).show();
                     findViewById(R.id.overlay).setVisibility(View.GONE);
                     findViewById(R.id.loadingProgressBar).setVisibility(View.GONE);
                 }

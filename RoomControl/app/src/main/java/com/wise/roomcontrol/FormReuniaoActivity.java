@@ -51,6 +51,8 @@ public class FormReuniaoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_reuniao);
+        drop=findViewById(R.id.dropdown);
+        atualizaOpcoes();
         //possibilidades=new JSONObject();
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final EditText campoDescricao=findViewById(R.id.descripText);
@@ -88,6 +90,9 @@ public class FormReuniaoActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(s!=null) {
+                    if (s.length() == 2 && !s.toString().contains(":")) {
+                        horaInicio.setText(s+":");
+                    }
                     if (s.length() > 1) {
                         hora1[0] = Character.getNumericValue(s.charAt(0)) * 10 + Character.getNumericValue(s.charAt(1));
                         if (s.length() > 4) {
@@ -107,10 +112,16 @@ public class FormReuniaoActivity extends AppCompatActivity {
                     }else if(s.toString().contains(".")){
                         hora1[0]=Integer.parseInt(s.toString().substring(0,s.toString().indexOf(".")-1));
                         hora1[1]=Integer.parseInt(s.toString().substring(s.toString().indexOf(".")+1,s.toString().length()-1));
+                    }else if(s.toString().contains(",")){
+                        hora1[0]=Integer.parseInt(s.toString().substring(0,s.toString().indexOf(",")-1));
+                        hora1[1]=Integer.parseInt(s.toString().substring(s.toString().indexOf(",")+1,s.toString().length()-1));
                     }else{
                         hora1[0]=Integer.parseInt(s.toString().substring(0,1));
                         hora1[1]=Integer.parseInt(s.toString().substring(2,s.toString().length()-1));
                     }
+                }else if(s!=null && s.length()==2){
+                    hora1[0]=Integer.parseInt(s.toString());
+                    hora1[1]=0;
                 }
             }
         });
@@ -121,12 +132,17 @@ public class FormReuniaoActivity extends AppCompatActivity {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length()>1){
-                    hora2[0]= Character.getNumericValue(s.charAt(0))*10+ Character.getNumericValue(s.charAt(1));
-                    if(s.length()>4) {
-                        hora2[1]= Character.getNumericValue(s.charAt(3))*10+ Character.getNumericValue(s.charAt(4));
-                        horaTer = new Time(hora2[0],hora2[1],0);
-                        atualizaOpcoes();
+                if(s!=null) {
+                    if (s.length() == 2 && !s.toString().contains(":")) {
+                        horaFim.setText(s+":");
+                    }
+                    if (s.length() > 1) {
+                        hora2[0] = Character.getNumericValue(s.charAt(0)) * 10 + Character.getNumericValue(s.charAt(1));
+                        if (s.length() > 4) {
+                            hora2[1] = Character.getNumericValue(s.charAt(3)) * 10 + Character.getNumericValue(s.charAt(4));
+                            horaTer = new Time(hora2[0], hora2[1], 0);
+                            atualizaOpcoes();
+                        }
                     }
                 }
             }
@@ -139,11 +155,18 @@ public class FormReuniaoActivity extends AppCompatActivity {
                     }else if(s.toString().contains(".")){
                         hora2[0]=Integer.parseInt(s.toString().substring(0,s.toString().indexOf(".")-1));
                         hora2[1]=Integer.parseInt(s.toString().substring(s.toString().indexOf(".")+1,s.toString().length()-1));
+                    }else if(s.toString().contains(",")){
+                        hora2[0]=Integer.parseInt(s.toString().substring(0,s.toString().indexOf(",")-1));
+                        hora2[1]=Integer.parseInt(s.toString().substring(s.toString().indexOf(",")+1,s.toString().length()-1));
                     }else{
                         hora2[0]=Integer.parseInt(s.toString().substring(0,1));
                         hora2[1]=Integer.parseInt(s.toString().substring(2,s.toString().length()-1));
                     }
-                }}
+                }else if(s!=null && s.length()==2){
+                    hora2[0]=Integer.parseInt(s.toString());
+                    hora2[1]=0;
+                }
+            }
         });
 
         final EditText pcs=findViewById(R.id.pcText);
@@ -180,7 +203,6 @@ public class FormReuniaoActivity extends AppCompatActivity {
         });
 
 
-        drop=findViewById(R.id.dropdown);
         drop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
