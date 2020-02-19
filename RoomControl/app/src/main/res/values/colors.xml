@@ -10,4 +10,6 @@
     <color name="colorGreyText">#B29194</color>
     <color name="colorFakeBlack">#0E0017</color>
     <color name="colorFakeBlackOverlay">#9C0A0010</color>
+    <color name="colorDarkGray">#333333</color>
+    <color name="colorDarkerGray">#202020</color>
 </resources>

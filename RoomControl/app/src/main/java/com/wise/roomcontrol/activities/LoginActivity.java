@@ -1,4 +1,4 @@
-package com.wise.roomcontrol;
+package com.wise.roomcontrol.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,13 +14,11 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.wise.roomcontrol.Dao;
+import com.wise.roomcontrol.R;
 import com.wise.roomcontrol.classes.User;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static java.lang.System.currentTimeMillis;
 

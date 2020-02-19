@@ -5,16 +5,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.wise.roomcontrol.Dao;
 import com.wise.roomcontrol.R;
-import com.wise.roomcontrol.RegisterActivity;
 import com.wise.roomcontrol.classes.Empresa;
-import com.wise.roomcontrol.classes.Reuniao;
 import com.wise.roomcontrol.classes.Sala;
 
 import org.json.JSONArray;

@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.wise.roomcontrol.Dao;
-import com.wise.roomcontrol.MainActivity;
+import com.wise.roomcontrol.activities.MainActivity;
 import com.wise.roomcontrol.R;
 import com.wise.roomcontrol.classes.Reuniao;
 import com.wise.roomcontrol.classes.Sala;
@@ -27,6 +27,7 @@ public class ListaReunioesAdapter extends BaseAdapter {
     private Context context;
     static public final List<Reuniao> reunioes = new ArrayList<>();
     private Dao dao=new Dao();
+    private boolean soPlayer;
 
     public ListaReunioesAdapter(Context context, List<Reuniao> reuniaos) {
         this.context = context;
@@ -35,6 +36,18 @@ public class ListaReunioesAdapter extends BaseAdapter {
 
     public ListaReunioesAdapter(Context context) {
         this.context = context;
+        try {
+            soPlayer = MainActivity.onlyLogado;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void setSoPlayer(Boolean soPlayer) {
+        if(soPlayer==null)
+            this.soPlayer=MainActivity.onlyLogado;
+        else
+            this.soPlayer = soPlayer;
     }
 
     @Override
@@ -129,24 +142,33 @@ public class ListaReunioesAdapter extends BaseAdapter {
         }*/
     }
 
-
     public void atualiza(){
         reunioes.clear();
         String[] a1 ={"id_sala"};
         String[] u1 ={"id"};
-        if(MainActivity.onlyLogado) {
+        if(soPlayer) {
             ListaOpcoesAdapter opcoes = new ListaOpcoesAdapter();
             opcoes.filtraSalas(dao.logado.getEmpresaId(), 0, false, false);
             try {
+                int auxiliar=0;
                 for (Sala sala : opcoes.getListaFiltrada()) {
-                    Object[] a2 = {(Integer) sala.getId()};
-                    JSONArray k = new JSONArray(dao.ServerInOutput(false, "reserva/byIdSala", a1, a2));
-                    if (k.length() > 0) {
-                        for (int i = 0; i < k.length(); i++) {
-                            JSONObject obj = k.getJSONObject(i);
-                            jsonArrayToObject(sala, obj);
+                    boolean aux;
+                    try {
+                        aux = MainActivity.salasNoFiltro.get(auxiliar);
+                    }catch (Exception e){
+                        aux=true;
+                    }
+                    if(aux) {
+                        Object[] a2 = {(Integer) sala.getId()};
+                        JSONArray k = new JSONArray(dao.ServerInOutput(false, "reserva/byIdSala", a1, a2));
+                        if (k.length() > 0) {
+                            for (int i = 0; i < k.length(); i++) {
+                                JSONObject obj = k.getJSONObject(i);
+                                jsonArrayToObject(sala, obj);
+                            }
                         }
                     }
+                    auxiliar++;
                 }
             } catch (Exception e) {
                 e.printStackTrace();

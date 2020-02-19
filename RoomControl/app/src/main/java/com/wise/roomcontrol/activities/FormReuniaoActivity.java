@@ -1,4 +1,4 @@
-package com.wise.roomcontrol;
+package com.wise.roomcontrol.activities;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.wise.roomcontrol.Dao;
+import com.wise.roomcontrol.R;
 import com.wise.roomcontrol.adapters.ListaOpcoesAdapter;
 import com.wise.roomcontrol.classes.Reuniao;
 
@@ -92,6 +94,7 @@ public class FormReuniaoActivity extends AppCompatActivity {
                 if(s!=null) {
                     if (s.length() == 2 && !s.toString().contains(":")) {
                         horaInicio.setText(s+":");
+                        horaInicio.setSelection(horaInicio.getText().length());
                     }
                     if (s.length() > 1) {
                         hora1[0] = Character.getNumericValue(s.charAt(0)) * 10 + Character.getNumericValue(s.charAt(1));
@@ -135,6 +138,7 @@ public class FormReuniaoActivity extends AppCompatActivity {
                 if(s!=null) {
                     if (s.length() == 2 && !s.toString().contains(":")) {
                         horaFim.setText(s+":");
+                       horaFim.setSelection(horaFim.getText().length());
                     }
                     if (s.length() > 1) {
                         hora2[0] = Character.getNumericValue(s.charAt(0)) * 10 + Character.getNumericValue(s.charAt(1));

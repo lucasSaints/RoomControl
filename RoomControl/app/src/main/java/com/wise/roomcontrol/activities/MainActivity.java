@@ -1,11 +1,11 @@
-package com.wise.roomcontrol;
+package com.wise.roomcontrol.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -20,6 +20,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
+import com.wise.roomcontrol.Dao;
+import com.wise.roomcontrol.R;
+import com.wise.roomcontrol.activities.boss.MeusFuncionarios;
+import com.wise.roomcontrol.activities.boss.MinhaEmpresa;
+import com.wise.roomcontrol.activities.boss.MinhasSalas;
 import com.wise.roomcontrol.adapters.ListaOpcoesAdapter;
 import com.wise.roomcontrol.adapters.ListaReunioesAdapter;
 import com.wise.roomcontrol.classes.Sala;
@@ -78,6 +84,24 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     builder.setTitle("Erro").setMessage("Você precisa estar logado para locar uma sala").show();
                 }
+            }
+        });
+
+        NavigationView navigationView=findViewById(R.id.nav);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                if(menuItem.getItemId()==R.id.myinc){
+                    startActivity(new Intent(MainActivity.this, MinhaEmpresa.class));
+                }else if(menuItem.getItemId()==R.id.mysalas){
+                    startActivity(new Intent(MainActivity.this, MinhasSalas.class));
+                }else if(menuItem.getItemId()==R.id.myslaves){
+                    startActivity(new Intent(MainActivity.this, MeusFuncionarios.class));
+                }
+                finish();
+                DrawerLayout drawer=findViewById(R.id.drawer);
+                drawer.closeDrawers();
+                return false;
             }
         });
         registerForContextMenu(lista);

@@ -1,19 +1,14 @@
-package com.wise.roomcontrol;
+package com.wise.roomcontrol.activities;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -21,16 +16,14 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.wise.roomcontrol.Dao;
+import com.wise.roomcontrol.R;
 import com.wise.roomcontrol.adapters.AuxAdapter;
 import com.wise.roomcontrol.adapters.ListaOpcoesAdapter;
 import com.wise.roomcontrol.classes.Empresa;
-import com.wise.roomcontrol.classes.User;
 
 //import org.json.JSONArray;
 //import org.json.JSONObject;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
