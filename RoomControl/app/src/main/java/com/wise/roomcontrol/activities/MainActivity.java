@@ -35,6 +35,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.wise.roomcontrol.Dao.playTickSound;
 import static java.lang.System.currentTimeMillis;
 
 public class MainActivity extends AppCompatActivity {
@@ -86,24 +87,29 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        NavigationView navigationView=findViewById(R.id.nav);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                if(menuItem.getItemId()==R.id.myinc){
-                    startActivity(new Intent(MainActivity.this, MinhaEmpresa.class));
-                }else if(menuItem.getItemId()==R.id.mysalas){
-                    startActivity(new Intent(MainActivity.this, MinhasSalas.class));
-                }else if(menuItem.getItemId()==R.id.myslaves){
-                    startActivity(new Intent(MainActivity.this, MeusFuncionarios.class));
-                }
-                finish();
-                DrawerLayout drawer=findViewById(R.id.drawer);
-                drawer.closeDrawers();
-                return false;
+        try {
+            if (dao.ServerInOutput(false, "usuario/checkBoss", new String[]{"id"}, new Integer[]{dao.logado.getId()}).contains("true")) {
+                Log.i("teste", "onCreate: eh tetra");
+                NavigationView navigationView = findViewById(R.id.nav);
+                navigationView.setVisibility(View.VISIBLE);
+                navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                        if (menuItem.getItemId() == R.id.myinc) {
+                            startActivity(new Intent(MainActivity.this, MinhaEmpresa.class));
+                        } else if (menuItem.getItemId() == R.id.mysalas) {
+                            startActivity(new Intent(MainActivity.this, MinhasSalas.class));
+                        } else if (menuItem.getItemId() == R.id.myslaves) {
+                            startActivity(new Intent(MainActivity.this, MeusFuncionarios.class));
+                        }
+                        finish();
+                        return false;
+                    }
+                });
             }
-        });
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         registerForContextMenu(lista);
     }
 
@@ -123,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        playTickSound();
+        playTickSound(MainActivity.this);
         if(item.getItemId() == R.id.switchreservas) {
             onlyLogado=!onlyLogado;
             adapter.atualiza();
@@ -153,16 +159,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void playTickSound() {
-        try {
-            MediaPlayer mp = MediaPlayer.create(MainActivity.this, R.raw.selec31);
-            mp.setLooping(false);
-            mp.start();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void onBackPressed() {
         if(msec+1200>currentTimeMillis()) {
@@ -186,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(@NonNull final MenuItem item) {
-        playTickSound();
+        playTickSound(MainActivity.this);
         int itemId = item.getItemId();
         final AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         if(itemId==R.id.removedor){

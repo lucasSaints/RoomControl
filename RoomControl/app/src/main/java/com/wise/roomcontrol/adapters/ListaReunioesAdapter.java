@@ -181,7 +181,7 @@ public class ListaReunioesAdapter extends BaseAdapter {
                         JSONObject obj = k.getJSONObject(i);
                         JSONObject objec = new JSONObject(dao.ServerInOutput(false,"sala/getById",new String[]{"id"},new Integer[]{obj.getInt("idSala")}));
                         System.out.println(objec);
-                        Sala salinha = new Sala(objec.getString("nome"),0,objec.getString("localizacao"),objec.getBoolean("possuiMultimidia"),objec.getBoolean("possuiArcon"));
+                        Sala salinha = new Sala(objec.getString("nome"),objec.getInt("quantPCs"),objec.getInt("quantidadePessoasSentadas"),objec.getString("localizacao"),objec.getBoolean("possuiMultimidia"),objec.getBoolean("possuiArcon"));
                         jsonArrayToObject(salinha,obj);
                     }
                 }

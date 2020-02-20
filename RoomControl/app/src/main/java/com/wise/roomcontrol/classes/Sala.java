@@ -1,20 +1,21 @@
 package com.wise.roomcontrol.classes;
 
 public class Sala {
-    private String name, andar;
-    private int pcs;
+    private String name, andar, dataCriacao, dataAlteracao;
+    private int pcs, quantPessoas;
     private boolean projetor, ac;
     private int id;
-    static private int contador=1;
+    //static private int contador=1;
 
-    public Sala(String name, int pcs, String andar, boolean projetor, boolean ac) {
+    public Sala(String name, int pcs, int quantPessoas, String andar, boolean projetor, boolean ac) {
         this.name = name;
         this.pcs = pcs;
         this.andar = andar;
         this.projetor = projetor;
         this.ac = ac;
-        this.id=contador;
-        contador++;
+        this.quantPessoas=quantPessoas;
+        //this.id=contador;
+        //contador++;
     }
 
     public String getName() {
@@ -23,6 +24,10 @@ public class Sala {
 
     public int getPcs() {
         return this.pcs;
+    }
+
+    public int getQuantPessoas() {
+        return quantPessoas;
     }
 
     public String getAndar() {
@@ -43,5 +48,21 @@ public class Sala {
 
     public boolean temAc() {
         return this.ac;
+    }
+
+    public String getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public String getDataAlteracao() {
+        return dataAlteracao;
+    }
+
+    public void setDataCriacao(String dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public void setDataAlteracao(String dataAlteracao) {
+        this.dataAlteracao = dataAlteracao;
     }
 }

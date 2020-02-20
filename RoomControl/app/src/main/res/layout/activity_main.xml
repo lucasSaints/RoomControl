@@ -1,21 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--suppress CheckTagEmptyBody -->
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible"
-        app:headerLayout="@layout/drawer_header"
-        app:menu="@menu/drawer_main" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".activities.MainActivity">
@@ -43,23 +32,24 @@
 
         </ListView>
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:foregroundGravity="clip_horizontal"
-            android:gravity="center_horizontal"
-            android:minHeight="?attr/actionBarSize"
-            android:scrollbarSize="4dp"
-            android:theme="?attr/actionBarTheme"
-            app:buttonGravity="center_vertical"
-            app:layout_constraintEnd_toEndOf="@id/fundo"
-            app:layout_constraintStart_toStartOf="@id/fundo"
-            app:layout_constraintTop_toTopOf="@+id/fundo"
-            app:subtitleTextColor="?attr/colorButtonNormal"
-            app:titleTextAppearance="@style/Title"
-            app:titleTextColor="@color/colorText" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/Base.Theme.AppCompat.Light.DarkActionBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:foregroundGravity="clip_horizontal"
+        android:gravity="center_horizontal"
+        android:minHeight="?attr/actionBarSize"
+        android:scrollbarSize="4dp"
+        android:theme="?attr/actionBarTheme"
+        app:buttonGravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="@id/fundo"
+        app:layout_constraintStart_toStartOf="@id/fundo"
+        app:layout_constraintTop_toTopOf="@+id/fundo"
+        app:subtitleTextColor="?attr/colorButtonNormal"
+        app:titleTextAppearance="@style/Title"
+        app:titleTextColor="@color/colorText" />
 
         <Button
             android:id="@+id/addButton"
@@ -72,5 +62,33 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/fundo" />
 
+    <SlidingDrawer
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:content="@id/nav"
+        android:handle="@+id/handleDrawer"
+        android:orientation="horizontal"
+        android:rotation="180"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/handleDrawer"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/drawerpuller" />
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:rotation="180"
+            app:headerLayout="@layout/drawer_header"
+            app:menu="@menu/drawer_main" />
+
+    </SlidingDrawer>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.drawerlayout.widget.DrawerLayout>

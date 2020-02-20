@@ -1,9 +1,12 @@
 package com.wise.roomcontrol;
 
+import android.content.Context;
+import android.media.MediaPlayer;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.wise.roomcontrol.activities.MainActivity;
 import com.wise.roomcontrol.classes.Empresa;
 import com.wise.roomcontrol.classes.Reuniao;
 import com.wise.roomcontrol.classes.User;
@@ -249,5 +252,15 @@ public class Dao {
             e.printStackTrace();
         }
         return "400";
+    }
+
+    public static void playTickSound(Context ctx) {
+        try {
+            MediaPlayer mp = MediaPlayer.create(ctx, R.raw.selec31);
+            mp.setLooping(false);
+            mp.start();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }
