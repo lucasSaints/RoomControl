@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--style name="MaterialEdittext" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:colorControlActivated">@color/colorGreyText</item>
+    </style-->
+
     <style name="Title" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">21sp</item>
         <item name="android:fontFamily">sans-serif-medium</item>

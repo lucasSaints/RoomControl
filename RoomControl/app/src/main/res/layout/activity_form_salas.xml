@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorDarkGray"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar2"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/nomeSala"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginRight="42dp"
+        android:background="?attr/colorButtonNormal"
+        android:ems="10"
+        android:hint="Nome da sala"
+        android:inputType="textPersonName"
+        android:paddingLeft="6dp"
+        android:paddingTop="9dp"
+        android:paddingRight="6dp"
+        android:paddingBottom="9dp"
+        android:textColor="@color/colorFakeBlack"
+        android:textColorHint="@color/colorFakeBlackOverlay"
+        android:textColorLink="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+
+    <EditText
+        android:id="@+id/andarSala"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginRight="70dp"
+        android:background="?attr/colorButtonNormal"
+        android:ems="10"
+        android:hint="Andar"
+        android:inputType="textPersonName"
+        android:paddingLeft="6dp"
+        android:paddingTop="9dp"
+        android:paddingRight="6dp"
+        android:paddingBottom="9dp"
+        android:textColor="@color/colorFakeBlack"
+        android:textColorHint="@color/colorFakeBlackOverlay"
+        android:textColorLink="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/nomeSala"
+        app:layout_constraintStart_toStartOf="@+id/nomeSala"
+        app:layout_constraintTop_toBottomOf="@+id/nomeSala" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/nomeSala"
+            app:layout_constraintEnd_toEndOf="@+id/nomeSala"
+            app:layout_constraintStart_toStartOf="@+id/nomeSala"
+            app:srcCompat="@color/colorFakeBlack" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/andarSala"
+            app:layout_constraintEnd_toEndOf="@+id/andarSala"
+            app:layout_constraintStart_toStartOf="@+id/andarSala"
+            app:srcCompat="@color/colorFakeBlack" />
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:rotation="180"
+            app:layout_constraintEnd_toEndOf="@+id/possuiProjText"
+            app:layout_constraintStart_toStartOf="@+id/possuiProjText"
+            app:layout_constraintTop_toBottomOf="@+id/possuiProjText" />
+
+        <Switch
+            android:id="@+id/switch2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:rotation="180"
+            app:layout_constraintEnd_toEndOf="@+id/possuiACText"
+            app:layout_constraintStart_toStartOf="@+id/possuiACText"
+            app:layout_constraintTop_toBottomOf="@+id/possuiACText" />
+
+        <TextView
+            android:id="@+id/possuiProjText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="A sala possui um projetor?"
+            android:textColor="?attr/colorButtonNormal"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/andarSala" />
+
+        <TextView
+            android:id="@+id/possuiACText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="A sala possui um ar-condicionado?"
+            android:textColor="?attr/colorButtonNormal"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/switch1" />
+
+    <TextView
+        android:id="@+id/simACText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Sim"
+        android:textColor="@color/colorGreyText"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/switch2"
+        app:layout_constraintEnd_toStartOf="@+id/switch2"
+        app:layout_constraintTop_toTopOf="@+id/switch2" />
+
+    <TextView
+        android:id="@+id/simProjText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Sim"
+        android:textColor="@color/colorGreyText"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/switch1"
+        app:layout_constraintEnd_toStartOf="@+id/switch1"
+        app:layout_constraintTop_toTopOf="@+id/switch1" />
+
+    <TextView
+        android:id="@+id/naoACText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Não"
+        android:textColor="@color/colorGreyText"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/switch2"
+        app:layout_constraintStart_toEndOf="@+id/switch2"
+        app:layout_constraintTop_toTopOf="@+id/switch2" />
+
+    <TextView
+        android:id="@+id/naoProjText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Não"
+        android:textColor="@color/colorGreyText"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/switch1"
+        app:layout_constraintStart_toEndOf="@+id/switch1"
+        app:layout_constraintTop_toTopOf="@+id/switch1" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginLeft="85dp"
+        android:layout_marginEnd="85dp"
+        android:layout_marginRight="85dp"
+        app:layout_constraintBottom_toBottomOf="@+id/capacSala"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/capacSala"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@color/colorFakeBlack" />
+
+    <EditText
+        android:id="@+id/capacSala"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        android:background="?attr/colorButtonNormal"
+        android:ems="10"
+        android:hint="Capacidade de pessoas"
+        android:inputType="textPersonName"
+        android:paddingLeft="6dp"
+        android:paddingTop="9dp"
+        android:paddingRight="6dp"
+        android:paddingBottom="9dp"
+        android:textColor="@color/colorFakeBlack"
+        android:textColorHint="@color/colorFakeBlackOverlay"
+        android:textColorLink="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/switch2" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginLeft="85dp"
+        android:layout_marginEnd="85dp"
+        android:layout_marginRight="85dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pcsSala"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/pcsSala"
+        app:srcCompat="@color/colorFakeBlack" />
+
+    <EditText
+        android:id="@+id/pcsSala"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        android:background="?attr/colorButtonNormal"
+        android:ems="10"
+        android:hint="Quantidade de PCs"
+        android:inputType="textPersonName"
+        android:paddingLeft="6dp"
+        android:paddingTop="9dp"
+        android:paddingRight="6dp"
+        android:paddingBottom="9dp"
+        android:textColor="@color/colorFakeBlack"
+        android:textColorHint="@color/colorFakeBlackOverlay"
+        android:textColorLink="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+    <Button
+        android:id="@+id/salvador"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginRight="120dp"
+        android:layout_marginBottom="100dp"
+        android:background="@color/colorAccent"
+        android:shadowColor="@color/colorFakeBlack"
+        android:shadowDy="10"
+        android:text="@string/save"
+        android:textColor="@color/colorText"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

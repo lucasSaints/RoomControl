@@ -1,5 +1,6 @@
 package com.wise.roomcontrol.activities.boss;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -27,7 +29,7 @@ import com.wise.roomcontrol.classes.Sala;
 
 import static com.wise.roomcontrol.Dao.playTickSound;
 
-public class MinhasSalas extends AppCompatActivity {
+public class MinhasSalasActivity extends AppCompatActivity {
 
     final private Dao dao=new Dao();
     private SharedPreferences prefs;
@@ -73,12 +75,20 @@ public class MinhasSalas extends AppCompatActivity {
         atualizaResumoSala(null);
         ListView lista = findViewById(R.id.listaSalas);
         adapter.filtraSalas(dao.logado.getEmpresaId(),0,false,false);
-        ArrayAdapter<String> adapterView = new ArrayAdapter<>(MinhasSalas.this, android.R.layout.simple_spinner_item, adapter.getAsString(2));
+        ArrayAdapter<String> adapterView = new ArrayAdapter<>(MinhasSalasActivity.this, R.layout.item_sala, adapter.getAsString(2));
         lista.setAdapter(adapterView);
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 atualizaResumoSala(adapter.getItem(position));
+            }
+        });
+
+        Button botone = findViewById(R.id.addSalaButton);
+        botone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MinhasSalasActivity.this,FormSalaActivity.class));
             }
         });
     }
@@ -114,7 +124,7 @@ public class MinhasSalas extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        playTickSound(MinhasSalas.this);
+        playTickSound(MinhasSalasActivity.this);
         onBackPressed();
         return super.onOptionsItemSelected(item);
     }

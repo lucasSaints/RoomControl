@@ -40,7 +40,7 @@ public class AuxAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View viewCriada = LayoutInflater.from(context).inflate(R.layout.opcao_item, parent, false);
+        View viewCriada = LayoutInflater.from(context).inflate(R.layout.item_opcao, parent, false);
         TextView nomeOpcao = viewCriada.findViewById(R.id.empresaNome);
         TextView description = viewCriada.findViewById(R.id.empresaLogradouro);
         nomeOpcao.setText(listaEmpresas.get(position).getNome());

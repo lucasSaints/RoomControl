@@ -74,7 +74,7 @@ public class ListaReunioesAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         //ordena();
-        View viewCriada = LayoutInflater.from(context).inflate(R.layout.reuniaolista_item, parent, false);
+        View viewCriada = LayoutInflater.from(context).inflate(R.layout.item_reuniaolista, parent, false);
         Reuniao reuniao = reunioes.get(position);
         TextView sala = viewCriada.findViewById(R.id.Sala); // Insere texto de nome da sala
         sala.setText(reuniao.getLugar().getName());         //    ''      ''       ''

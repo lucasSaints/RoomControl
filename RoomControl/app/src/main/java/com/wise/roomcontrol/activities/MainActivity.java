@@ -3,12 +3,10 @@ package com.wise.roomcontrol.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -23,9 +21,9 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.wise.roomcontrol.Dao;
 import com.wise.roomcontrol.R;
-import com.wise.roomcontrol.activities.boss.MeusFuncionarios;
-import com.wise.roomcontrol.activities.boss.MinhaEmpresa;
-import com.wise.roomcontrol.activities.boss.MinhasSalas;
+import com.wise.roomcontrol.activities.boss.MeusFuncionariosActivity;
+import com.wise.roomcontrol.activities.boss.MinhaEmpresaActivity;
+import com.wise.roomcontrol.activities.boss.MinhasSalasActivity;
 import com.wise.roomcontrol.adapters.ListaOpcoesAdapter;
 import com.wise.roomcontrol.adapters.ListaReunioesAdapter;
 import com.wise.roomcontrol.classes.Sala;
@@ -96,13 +94,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                         if (menuItem.getItemId() == R.id.myinc) {
-                            startActivity(new Intent(MainActivity.this, MinhaEmpresa.class));
+                            startActivity(new Intent(MainActivity.this, MinhaEmpresaActivity.class));
                         } else if (menuItem.getItemId() == R.id.mysalas) {
-                            startActivity(new Intent(MainActivity.this, MinhasSalas.class));
+                            startActivity(new Intent(MainActivity.this, MinhasSalasActivity.class));
                         } else if (menuItem.getItemId() == R.id.myslaves) {
-                            startActivity(new Intent(MainActivity.this, MeusFuncionarios.class));
+                            startActivity(new Intent(MainActivity.this, MeusFuncionariosActivity.class));
                         }
-                        finish();
                         return false;
                     }
                 });

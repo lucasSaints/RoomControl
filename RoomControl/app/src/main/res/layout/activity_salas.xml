@@ -17,12 +17,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@color/colorDarkGray" />
+        app:srcCompat="@color/design_default_color_primary_dark" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/design_default_color_primary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,6 +38,7 @@
         android:layout_marginLeft="12dp"
         android:layout_marginEnd="12dp"
         android:layout_marginRight="12dp"
+        android:background="@color/colorDarkGray"
         app:layout_constraintBottom_toTopOf="@+id/details"
         app:layout_constraintEnd_toEndOf="@+id/fundoSalas"
         app:layout_constraintStart_toStartOf="@+id/fundoSalas"
@@ -58,7 +60,7 @@
         android:id="@+id/selectedSalaName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="6dp"
+        android:paddingTop="9dp"
         android:text="Conselho Jedi"
         android:textColor="@color/colorText"
         android:textSize="25sp"
@@ -70,7 +72,7 @@
         android:id="@+id/selectedSalaAndar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="18dp"
         android:text="Andar 3"
         android:textColor="?attr/colorButtonNormal"
         android:textSize="20sp"
@@ -81,13 +83,23 @@
         android:id="@+id/selectedSalaPCs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:text="PCs: 15"
         android:textColor="?attr/colorButtonNormal"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/selectedSalaAndar"
-        app:layout_constraintEnd_toStartOf="@+id/arcondicionado" />
+        app:layout_constraintBottom_toTopOf="@+id/selectedSalaPessoas"
+        app:layout_constraintEnd_toEndOf="@+id/selectedSalaPessoas" />
+
+    <TextView
+        android:id="@+id/selectedSalaPessoas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="7dp"
+        android:layout_marginRight="7dp"
+        android:text="Capacidade: 15"
+        android:textColor="?attr/colorButtonNormal"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/selectedSalaArcondicionado"
+        app:layout_constraintEnd_toStartOf="@+id/selectedSalaProjetor" />
 
     <TextView
         android:id="@+id/selectedSalaDataCriacao"
@@ -96,10 +108,10 @@
         android:layout_marginBottom="16dp"
         android:text="Data de criação: Wed 12/05/14 04:20 UTC"
         android:textColor="@color/colorText"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/details"
-        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="@+id/details" />
 
     <TextView
@@ -108,19 +120,19 @@
         android:layout_height="wrap_content"
         android:text="Data de alteração: Thu 13/05/14 04:20 UTC"
         android:textColor="@color/colorGreyText"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/selectedSalaDataCriacao"
         app:layout_constraintStart_toStartOf="@+id/selectedSalaDataCriacao" />
 
     <CheckBox
-        android:id="@+id/Projetor"
+        android:id="@+id/selectedSalaProjetor"
         style="@style/Widget.AppCompat.CompoundButton.CheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
         android:text="@string/projetor"
         android:textColor="?attr/colorButtonNormal"
         android:textSize="13sp"
@@ -128,15 +140,26 @@
         app:layout_constraintTop_toBottomOf="@+id/listaSalas" />
 
     <CheckBox
-        android:id="@+id/arcondicionado"
+        android:id="@+id/selectedSalaArcondicionado"
         style="@style/Widget.AppCompat.CompoundButton.CheckBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="AC"
         android:textColor="?attr/colorButtonNormal"
         android:textSize="13sp"
-        app:layout_constraintEnd_toEndOf="@+id/Projetor"
-        app:layout_constraintStart_toStartOf="@+id/Projetor"
-        app:layout_constraintTop_toBottomOf="@+id/Projetor" />
+        app:layout_constraintEnd_toEndOf="@+id/selectedSalaProjetor"
+        app:layout_constraintStart_toStartOf="@+id/selectedSalaProjetor"
+        app:layout_constraintTop_toBottomOf="@+id/selectedSalaProjetor" />
+
+    <Button
+        android:id="@+id/addSalaButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="21dp"
+        android:background="@drawable/add"
+        app:layout_constraintBottom_toBottomOf="@+id/listaSalas"
+        app:layout_constraintEnd_toEndOf="@+id/fundoSalas" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

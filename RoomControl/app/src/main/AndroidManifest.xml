@@ -26,9 +26,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.boss.MinhaEmpresa" />
-        <activity android:name=".activities.boss.MinhasSalas" />
-        <activity android:name=".activities.boss.MeusFuncionarios" />
+        <activity android:name=".activities.boss.MinhaEmpresaActivity" />
+        <activity android:name=".activities.boss.MinhasSalasActivity" />
+        <activity android:name=".activities.boss.MeusFuncionariosActivity" />
+        <activity android:name=".activities.boss.FormSalaActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
