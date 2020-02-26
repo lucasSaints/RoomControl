@@ -42,14 +42,14 @@ public class LoginActivity extends AppCompatActivity {
         campoLogin=findViewById(R.id.email);
         campoSenha=findViewById(R.id.password);
         final CheckBox caixa=findViewById(R.id.checkBox);
-        try{
-            if(prefs.getBoolean("lembrarme",false)) {
+        //try{
+            if(caixa.isChecked()) {
                 campoLogin.setText(prefs.getString("email", null));
                 campoSenha.setText(prefs.getString("senha", null));
             }
-        }catch (Exception e){
+        /*}catch (Exception e){
             e.printStackTrace();
-        }
+        }*/
         final Button botaologin = findViewById(R.id.login);
         botaologin.setOnClickListener(new View.OnClickListener() {
             @Override
