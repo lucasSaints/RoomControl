@@ -242,5 +242,4 @@ public class ListaReunioesAdapter extends BaseAdapter {
             }
         }
     }
-
 }

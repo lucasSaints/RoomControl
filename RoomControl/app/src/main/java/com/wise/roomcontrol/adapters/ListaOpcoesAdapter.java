@@ -59,7 +59,7 @@ public class ListaOpcoesAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View viewCriada = LayoutInflater.from(context).inflate(R.layout.opcao_item, parent, false);
+        View viewCriada = LayoutInflater.from(context).inflate(R.layout.item_opcao, parent, false);
         TextView nomeOpcao = viewCriada.findViewById(R.id.empresaNome);
         TextView description = viewCriada.findViewById(R.id.empresaLogradouro);
         nomeOpcao.setText(listaFiltrada.get(position).getName());
@@ -109,10 +109,26 @@ public class ListaOpcoesAdapter extends BaseAdapter {
                         boolean ativo = obj.getBoolean("ativo");
                         boolean proj=obj.getBoolean("possuiMultimidia");
                         boolean ar=obj.getBoolean("possuiArcon");
-                        //int pcs=obj.getInt("quantPCs");
+                        int pcs=obj.getInt("quantPCs");
+                        int qntPessoas = obj.getInt("quantidadePessoasSentadas");
+                        int incId=obj.getJSONObject("idOrganizacao").getInt("id");
+                        String dataCria = obj.getString("dataCriacao").replaceAll("-","/");         //.replaceAll(":00Z"," ")
+                        dataCria = dataFormatter(dataCria);
                         if(ativo) {
-                            Sala newSala = new Sala(nome,0,andar,proj,ar);
+                            Sala newSala = new Sala(nome,pcs,qntPessoas,andar,proj,ar);
                             newSala.setId(id);
+                            newSala.setEmpresaId(incId);
+                            newSala.setDataCriacao(dataCria);
+                            try {
+                                if (obj.get("dataAlteracao") != null && !obj.getString("dataAlteracao").isEmpty()) {
+                                    String dataAlt = obj.getString("dataAlteracao").replaceAll("-", "/");
+                                    dataAlt = dataFormatter(dataAlt);
+                                    newSala.setDataAlteracao(dataAlt);
+                                } else
+                                    newSala.setDataAlteracao(dataCria);
+                            }catch (Exception e){
+                                newSala.setDataAlteracao(dataCria);
+                            }
                             salasNaEmpresa.add(newSala);
                             listaDeStrings.add(newSala.getName());
                         }
@@ -123,6 +139,15 @@ public class ListaOpcoesAdapter extends BaseAdapter {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public String dataFormatter(String data) {
+        String[] dataAux = data.split("T");
+        data=dataAux[0]+" "+dataAux[1]+"T"+dataAux[2];
+        dataAux[0]=data.substring(0, data.indexOf(":",data.indexOf(":")+1) );
+        dataAux[1]=data.substring(data.indexOf("["),data.indexOf("]")+1);
+        data=dataAux[0]+" "+dataAux[1];
+        return data;
     }
 
     public void filtraSalas(int empresaID, int pcs, boolean projet, boolean ac) {
@@ -193,5 +218,20 @@ public class ListaOpcoesAdapter extends BaseAdapter {
                 break;
         }
         return listaStr;
+    }
+
+    public static JSONObject empresaToJson(Empresa emp){
+        JSONObject obj=new JSONObject();
+        try {
+            obj.put("nome", emp.getNome());
+            obj.put("dominio", emp.getDominio());
+            obj.put("endereco", emp.getEndereco());
+            obj.put("id", emp.getId());
+            obj.put("ativo", true);
+            obj.put("tipoOrganizacao", Character.toString(emp.getTipo()));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return obj;
     }
 }

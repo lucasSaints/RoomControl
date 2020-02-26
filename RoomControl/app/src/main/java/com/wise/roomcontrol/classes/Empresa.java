@@ -14,6 +14,10 @@ public class Empresa {
         return id;
     }
 
+    public char getTipo() {
+        return tipo;
+    }
+
     public List<Sala> salas = new ArrayList<>();
     static private int contadorId=1;
     final private Dao dao=new Dao();

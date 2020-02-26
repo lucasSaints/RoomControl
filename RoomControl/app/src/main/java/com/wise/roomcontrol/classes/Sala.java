@@ -4,8 +4,16 @@ public class Sala {
     private String name, andar, dataCriacao, dataAlteracao;
     private int pcs, quantPessoas;
     private boolean projetor, ac;
-    private int id;
+    private int id, empresaId;
     //static private int contador=1;
+
+    public int getEmpresaId() {
+        return empresaId;
+    }
+
+    public void setEmpresaId(int empresaId) {
+        this.empresaId = empresaId;
+    }
 
     public Sala(String name, int pcs, int quantPessoas, String andar, boolean projetor, boolean ac) {
         this.name = name;
