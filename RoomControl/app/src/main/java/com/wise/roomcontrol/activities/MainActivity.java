@@ -7,7 +7,9 @@ import androidx.appcompat.widget.Toolbar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -52,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
         onlyLogado=true;
         if(!onlyLogado)
             setTitle("Minhas reuniões");
@@ -90,19 +96,25 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("teste", "onCreate: eh tetra");
                 NavigationView navigationView = findViewById(R.id.nav);
                 navigationView.setVisibility(View.VISIBLE);
+                if(Build.VERSION.SDK_INT<17 || displayMetrics.widthPixels<300)
+                    navigationView.getMenu().findItem(R.id.myslaves).setVisible(false);
                 navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                        if (menuItem.getItemId() == R.id.myinc) {
-                            startActivity(new Intent(MainActivity.this, MinhaEmpresaActivity.class));
-                        } else if (menuItem.getItemId() == R.id.mysalas) {
-                            startActivity(new Intent(MainActivity.this, MinhasSalasActivity.class));
-                        } else if (menuItem.getItemId() == R.id.myslaves) {
-                            startActivity(new Intent(MainActivity.this, MeusFuncionariosActivity.class));
-                        }
-                        return false;
+                    if (menuItem.getItemId() == R.id.myinc) {
+                        startActivity(new Intent(MainActivity.this, MinhaEmpresaActivity.class));
+                    } else if (menuItem.getItemId() == R.id.mysalas) {
+                        startActivity(new Intent(MainActivity.this, MinhasSalasActivity.class));
+                    } else if (menuItem.getItemId() == R.id.myslaves) {
+                        startActivity(new Intent(MainActivity.this, MeusFuncionariosActivity.class));
+                    }
+                    return false;
                     }
                 });
+            }else{
+                findViewById(R.id.slidin).setVisibility(View.GONE);
+                findViewById(R.id.nav).setVisibility(View.GONE);
+                findViewById(R.id.handleDrawer).setVisibility(View.GONE);
             }
         }catch(Exception e){
             e.printStackTrace();

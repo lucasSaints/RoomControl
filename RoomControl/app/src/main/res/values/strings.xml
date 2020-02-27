@@ -41,4 +41,5 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
     <string name="server_conection_problem_try_again_later">Não foi possível conectar-se ao servidor. Tente novamente mais tarde</string>
+    <string name="choosedate">Escolher data</string>
 </resources>

@@ -1,21 +1,31 @@
 package com.wise.roomcontrol.adapters;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.wise.roomcontrol.Dao;
+import com.wise.roomcontrol.R;
 import com.wise.roomcontrol.classes.User;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserAdapter extends BaseAdapter {
 
-    private List<User> usuarios;
+    private List<User> usuarios=new ArrayList<>();
     private Dao dao=new Dao();
+    private Context context;
+
+    public UserAdapter(Context context) {
+        this.context = context;
+    }
 
     public void atualiza(){
         try {
@@ -50,6 +60,11 @@ public class UserAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+        View viewCriada = LayoutInflater.from(context).inflate(R.layout.item_opcao, parent, false);
+        TextView nomeOpcao = viewCriada.findViewById(R.id.empresaNome);
+        TextView description = viewCriada.findViewById(R.id.empresaLogradouro);
+        nomeOpcao.setText(usuarios.get(position).getUser());
+        description.setText(usuarios.get(position).getMail());
+        return viewCriada;
     }
 }

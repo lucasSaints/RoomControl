@@ -23,8 +23,10 @@
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/fundo"
         app:layout_constraintEnd_toEndOf="@id/fundo"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/fundo"
-        app:layout_constraintTop_toTopOf="@id/fundo">
+        app:layout_constraintTop_toTopOf="@id/fundo"
+        app:layout_constraintVertical_bias="1.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -72,50 +74,58 @@
                 android:layout_marginRight="40dp"
                 android:contentDescription="@string/escolha_data_reuniao_calendrio"
                 android:minDate="01/01/2020"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/descripText" />
 
             <EditText
                 android:id="@+id/horaText"
-                android:layout_width="142dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
                 android:backgroundTint="@color/colorGreyText"
                 android:contentDescription="@string/hora_de_inicio"
                 android:ems="10"
+                android:gravity="center_horizontal"
                 android:hint="@string/hora_de_inicio"
                 android:inputType="number"
                 android:textColor="@color/colorText"
                 android:textColorHint="@color/colorGreyText"
+                android:textSize="17sp"
+                app:layout_constraintEnd_toStartOf="@+id/pcText"
                 app:layout_constraintStart_toStartOf="@+id/fundoCalend"
                 app:layout_constraintTop_toBottomOf="@+id/calendarView"
                 tools:targetApi="lollipop" />
 
             <EditText
                 android:id="@+id/horaText2"
-                android:layout_width="142dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
                 android:backgroundTint="@color/colorGreyText"
                 android:contentDescription="@string/hora_de_termino"
                 android:ems="10"
+                android:gravity="center_horizontal"
                 android:hint="@string/hora_de_termino"
                 android:inputType="number"
                 android:textColor="@color/colorText"
                 android:textColorHint="@color/colorGreyText"
+                android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="@+id/fundoCalend"
+                app:layout_constraintStart_toEndOf="@+id/pcText"
                 app:layout_constraintTop_toBottomOf="@+id/calendarView"
                 tools:targetApi="lollipop" />
 
             <EditText
                 android:id="@+id/pcText"
-                android:layout_width="75dp"
+                android:layout_width="62dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="95dp"
                 android:backgroundTint="@color/colorGreyText"
                 android:contentDescription="@string/quantidade_de_computadores"
                 android:ems="10"
+                android:gravity="center_horizontal"
                 android:hint="15"
                 android:inputType="number"
                 android:textColor="@color/colorText"
@@ -123,13 +133,14 @@
                 app:layout_constraintEnd_toEndOf="@+id/calendarView"
                 app:layout_constraintStart_toStartOf="@+id/calendarView"
                 app:layout_constraintTop_toBottomOf="@+id/calendarView"
-                tools:targetApi="lollipop"
-                tools:ignore="HardcodedText" />
+                tools:ignore="HardcodedText"
+                tools:targetApi="lollipop" />
 
             <TextView
                 android:id="@+id/pcHint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:text="@string/computadores"
                 android:textColor="@color/colorGreyText"
                 android:textSize="12sp"
@@ -145,11 +156,13 @@
                 android:contentDescription="@string/precisa_de_projetor"
                 app:layout_constraintBottom_toBottomOf="@+id/pcText"
                 app:layout_constraintEnd_toStartOf="@+id/pcText"
+                app:layout_constraintStart_toStartOf="@+id/horaText"
                 app:layout_constraintTop_toTopOf="@+id/pcText" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:text="@string/projetor"
                 android:textColor="@color/colorGreyText"
                 android:textSize="12sp"
@@ -164,12 +177,14 @@
                 android:layout_marginLeft="50dp"
                 android:contentDescription="@string/precisa_de_ar_condicionado"
                 app:layout_constraintBottom_toBottomOf="@+id/pcText"
+                app:layout_constraintEnd_toEndOf="@+id/horaText2"
                 app:layout_constraintStart_toEndOf="@+id/pcText"
                 app:layout_constraintTop_toTopOf="@+id/pcText" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:text="@string/ac"
                 android:textColor="@color/colorGreyText"
                 android:textSize="12sp"
@@ -212,11 +227,33 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:paddingBottom="24dp"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toStartOf="@+id/saveButton"
                 app:layout_constraintHorizontal_bias="0.61"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dropdown" />
+
+            <Button
+                android:id="@+id/alertCalendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorSecondary"
+                android:contentDescription="@string/escolha_data_reuniao_calendrio"
+                android:minDate="01/01/2020"
+                android:paddingLeft="12dp"
+                android:paddingTop="4dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="4dp"
+                android:text="@string/choosedate"
+                android:textColor="@color/colorText"
+                android:textSize="17sp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/fundoCalend"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/fundoCalend" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

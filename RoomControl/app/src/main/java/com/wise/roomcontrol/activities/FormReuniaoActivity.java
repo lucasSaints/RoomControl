@@ -1,23 +1,31 @@
 package com.wise.roomcontrol.activities;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.wise.roomcontrol.Dao;
 import com.wise.roomcontrol.R;
@@ -32,6 +40,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Time;
+import java.util.Calendar;
 import java.util.Date;
 
 public class FormReuniaoActivity extends AppCompatActivity {
@@ -75,17 +84,53 @@ public class FormReuniaoActivity extends AppCompatActivity {
         //locador=dao.logado.getUser();
 
         final CalendarView calendario=findViewById(R.id.calendarView);
-        calendario.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
-            @Override
-            public void onSelectedDayChange(CalendarView calendar, int ano, int mes, int dia){
-                data[0]=dia;
-                data[1]=mes;
-                data[2]=ano-1900;
-                atualizaOpcoes();
-            }
-        });
+        final Button alertaCalendario=findViewById(R.id.alertCalendar);
+        final Switch projet=findViewById(R.id.switchProjetor);
+        final Switch arcon=findViewById(R.id.switchAC);
 
+        if(Build.VERSION.SDK_INT<20){
+            arcon.setTextOff(" ");
+            arcon.setTextOn(" ");
+            projet.setTextOff(" ");
+            projet.setTextOn(" ");
+            //calendario.setLayoutParams(new ConstraintLayout.LayoutParams(calendario.getWidth(),330));
+            calendario.setVisibility(View.INVISIBLE);
+            alertaCalendario.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(FormReuniaoActivity.this);
+                    final DatePicker pique = new DatePicker(FormReuniaoActivity.this);
+                    pique.setMinDate(Calendar.getInstance().getTimeInMillis()-1000);
+                    pique.setCalendarViewShown(false);
+                    pique.setSpinnersShown(true);
+                    builder.setTitle(getString(R.string.choosedate)).setView(pique).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            SaveDate(pique.getYear(), pique.getMonth(), pique.getDayOfMonth());
+                        }
+                    }).show();
+                }
+            });
+        }else{
+            alertaCalendario.setVisibility(View.GONE);
+            calendario.setMinDate(Calendar.getInstance().getTimeInMillis());
+            calendario.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
+                @Override
+                public void onSelectedDayChange(CalendarView calendar, int ano, int mes, int dia){
+                    SaveDate(ano, mes, dia);
+                }
+            });
+        }
         final EditText horaInicio=findViewById(R.id.horaText);
+        final EditText horaFim=findViewById(R.id.horaText2);
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        if(displayMetrics.widthPixels<300){
+            horaFim.setHint("Fim");
+            horaInicio.setHint("Iníc.");
+        }
+
         horaInicio.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -108,28 +153,29 @@ public class FormReuniaoActivity extends AppCompatActivity {
             }
             @Override
             public void afterTextChanged(Editable s) {
-                if(s!=null && s.length()>=4){
-                    if(s.toString().contains(":")){
-                        hora1[0]=Integer.parseInt(s.toString().substring(0,s.toString().indexOf(":")-1));
-                        hora1[1]=Integer.parseInt(s.toString().substring(s.toString().indexOf(":")+1,s.toString().length()-1));
-                    }else if(s.toString().contains(".")){
-                        hora1[0]=Integer.parseInt(s.toString().substring(0,s.toString().indexOf(".")-1));
-                        hora1[1]=Integer.parseInt(s.toString().substring(s.toString().indexOf(".")+1,s.toString().length()-1));
-                    }else if(s.toString().contains(",")){
-                        hora1[0]=Integer.parseInt(s.toString().substring(0,s.toString().indexOf(",")-1));
-                        hora1[1]=Integer.parseInt(s.toString().substring(s.toString().indexOf(",")+1,s.toString().length()-1));
-                    }else{
-                        hora1[0]=Integer.parseInt(s.toString().substring(0,1));
-                        hora1[1]=Integer.parseInt(s.toString().substring(2,s.toString().length()-1));
+                if(!horaInicio.hasFocus()) {
+                    if (s != null && s.length() >= 4) {
+                        if (s.toString().contains(":")) {
+                            hora1[0] = Integer.parseInt(s.toString().substring(0, s.toString().indexOf(":") - 1));
+                            hora1[1] = Integer.parseInt(s.toString().substring(s.toString().indexOf(":") + 1, s.toString().length() - 1));
+                        } else if (s.toString().contains(".")) {
+                            hora1[0] = Integer.parseInt(s.toString().substring(0, s.toString().indexOf(".") - 1));
+                            hora1[1] = Integer.parseInt(s.toString().substring(s.toString().indexOf(".") + 1, s.toString().length() - 1));
+                        } else if (s.toString().contains(",")) {
+                            hora1[0] = Integer.parseInt(s.toString().substring(0, s.toString().indexOf(",") - 1));
+                            hora1[1] = Integer.parseInt(s.toString().substring(s.toString().indexOf(",") + 1, s.toString().length() - 1));
+                        } else {
+                            hora1[0] = Integer.parseInt(s.toString().substring(0, 1));
+                            hora1[1] = Integer.parseInt(s.toString().substring(2, s.toString().length() - 1));
+                        }
+                    } else if (s != null && s.length() == 2) {
+                        hora1[0] = Integer.parseInt(s.toString());
+                        hora1[1] = 0;
                     }
-                }else if(s!=null && s.length()==2){
-                    hora1[0]=Integer.parseInt(s.toString());
-                    hora1[1]=0;
                 }
             }
         });
 
-        final EditText horaFim=findViewById(R.id.horaText2);
         horaFim.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -152,23 +198,25 @@ public class FormReuniaoActivity extends AppCompatActivity {
             }
             @Override
             public void afterTextChanged(Editable s) {
-                if(s!=null && s.length()>=4){
-                    if(s.toString().contains(":")){
-                        hora2[0]=Integer.parseInt(s.toString().substring(0,s.toString().indexOf(":")-1));
-                        hora2[1]=Integer.parseInt(s.toString().substring(s.toString().indexOf(":")+1,s.toString().length()-1));
-                    }else if(s.toString().contains(".")){
-                        hora2[0]=Integer.parseInt(s.toString().substring(0,s.toString().indexOf(".")-1));
-                        hora2[1]=Integer.parseInt(s.toString().substring(s.toString().indexOf(".")+1,s.toString().length()-1));
-                    }else if(s.toString().contains(",")){
-                        hora2[0]=Integer.parseInt(s.toString().substring(0,s.toString().indexOf(",")-1));
-                        hora2[1]=Integer.parseInt(s.toString().substring(s.toString().indexOf(",")+1,s.toString().length()-1));
-                    }else{
-                        hora2[0]=Integer.parseInt(s.toString().substring(0,1));
-                        hora2[1]=Integer.parseInt(s.toString().substring(2,s.toString().length()-1));
+                if(!horaFim.hasFocus()) {
+                    if (s != null && s.length() >= 4) {
+                        if (s.toString().contains(":")) {
+                            hora2[0] = Integer.parseInt(s.toString().substring(0, s.toString().indexOf(":") - 1));
+                            hora2[1] = Integer.parseInt(s.toString().substring(s.toString().indexOf(":") + 1, s.toString().length() - 1));
+                        } else if (s.toString().contains(".")) {
+                            hora2[0] = Integer.parseInt(s.toString().substring(0, s.toString().indexOf(".") - 1));
+                            hora2[1] = Integer.parseInt(s.toString().substring(s.toString().indexOf(".") + 1, s.toString().length() - 1));
+                        } else if (s.toString().contains(",")) {
+                            hora2[0] = Integer.parseInt(s.toString().substring(0, s.toString().indexOf(",") - 1));
+                            hora2[1] = Integer.parseInt(s.toString().substring(s.toString().indexOf(",") + 1, s.toString().length() - 1));
+                        } else {
+                            hora2[0] = Integer.parseInt(s.toString().substring(0, 1));
+                            hora2[1] = Integer.parseInt(s.toString().substring(2, s.toString().length() - 1));
+                        }
+                    } else if (s != null && s.length() == 2) {
+                        hora2[0] = Integer.parseInt(s.toString());
+                        hora2[1] = 0;
                     }
-                }else if(s!=null && s.length()==2){
-                    hora2[0]=Integer.parseInt(s.toString());
-                    hora2[1]=0;
                 }
             }
         });
@@ -188,7 +236,6 @@ public class FormReuniaoActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {}
         });
 
-        final Switch arcon=findViewById(R.id.switchAC);
         arcon.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
@@ -197,7 +244,6 @@ public class FormReuniaoActivity extends AppCompatActivity {
             }
         });
 
-        final Switch projet=findViewById(R.id.switchProjetor);
         projet.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
@@ -275,6 +321,13 @@ public class FormReuniaoActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void SaveDate(int ano, int mes, int dia) {
+        data[0]=dia;
+        data[1]=mes;
+        data[2]=ano-1900;
+        atualizaOpcoes();
     }
 
     private void atualizaOpcoes() {

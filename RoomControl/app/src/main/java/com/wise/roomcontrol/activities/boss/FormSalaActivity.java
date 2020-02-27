@@ -50,6 +50,12 @@ public class FormSalaActivity extends AppCompatActivity {
                     obj.put("possuiArcon",ac.isChecked());
                     obj.put("possuiMultimidia",proj.isChecked());*/
                     String capac="", pcs="";
+
+                    ac.setTextOff(" ");
+                    ac.setTextOn(" ");
+                    proj.setTextOff(" ");
+                    proj.setTextOn(" ");
+
                     if(campoCapac.getText()!=null && !campoCapac.getText().toString().isEmpty())
                         capac = campoCapac.getText().toString();
                     if(campoPcs.getText()!=null && !campoPcs.getText().toString().isEmpty())
