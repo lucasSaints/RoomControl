@@ -8,6 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="Switch" parent="Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:textOff">""</item>
+        <item name="android:textOn">""</item>
+    </style>
+
     <!--style name="MaterialEdittext" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="android:colorControlActivated">@color/colorGreyText</item>
     </style-->

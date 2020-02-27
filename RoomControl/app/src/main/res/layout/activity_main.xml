@@ -63,6 +63,7 @@
             app:layout_constraintEnd_toEndOf="@+id/fundo" />
 
     <SlidingDrawer
+        android:id="@+id/slidin"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:content="@id/nav"

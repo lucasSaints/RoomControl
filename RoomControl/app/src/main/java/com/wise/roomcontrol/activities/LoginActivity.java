@@ -42,14 +42,12 @@ public class LoginActivity extends AppCompatActivity {
         campoLogin=findViewById(R.id.email);
         campoSenha=findViewById(R.id.password);
         final CheckBox caixa=findViewById(R.id.checkBox);
-        //try{
-            if(caixa.isChecked()) {
-                campoLogin.setText(prefs.getString("email", null));
-                campoSenha.setText(prefs.getString("senha", null));
-            }
-        /*}catch (Exception e){
+        try{
+            campoLogin.setText(prefs.getString("email", null));
+            campoSenha.setText(prefs.getString("senha", null));
+        }catch (Exception e){
             e.printStackTrace();
-        }*/
+        }
         final Button botaologin = findViewById(R.id.login);
         botaologin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,9 +70,9 @@ public class LoginActivity extends AppCompatActivity {
                             int emp = obj.getJSONObject("idOrganizacao").getInt("id");
                             System.out.println(emp);
                             dao.logado = new User(campoLogin.getText().toString(),campoSenha.getText().toString(),nome,emp,id);
-                            editor.putString("email",campoLogin.getText().toString());
-                            editor.putString("senha",campoSenha.getText().toString());
                             if(caixa.isChecked()){
+                                editor.putString("email",campoLogin.getText().toString());
+                                editor.putString("senha",campoSenha.getText().toString());
                                 editor.putBoolean("lembrarme",true);
                             }
                             editor.commit();
