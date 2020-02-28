@@ -9,7 +9,7 @@
     android:paddingBottom="1dp">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewLar"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="2dp"
@@ -18,11 +18,11 @@
         android:layout_marginEnd="2dp"
         android:layout_marginRight="2dp"
         android:layout_marginBottom="1dp"
+        android:background="?attr/colorError"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?attr/colorError" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/empresaNome"
@@ -34,9 +34,9 @@
         android:textColor="@color/colorText"
         android:textSize="20sp"
         app:fontFamily="sans-serif-condensed-medium"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewLar"
+        app:layout_constraintStart_toStartOf="@+id/imageViewLar"
+        app:layout_constraintTop_toTopOf="@+id/imageViewLar" />
 
     <TextView
         android:id="@+id/empresaLogradouro"
@@ -50,7 +50,7 @@
         android:textSize="12sp"
         android:textStyle="italic"
         app:fontFamily="sans-serif"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintEnd_toEndOf="@+id/imageViewLar"
+        app:layout_constraintTop_toTopOf="@+id/imageViewLar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

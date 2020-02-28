@@ -1,10 +1,14 @@
 package com.wise.roomcontrol.activities.boss;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +19,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,8 +29,12 @@ import androidx.core.graphics.ColorUtils;
 
 import com.wise.roomcontrol.Dao;
 import com.wise.roomcontrol.R;
+import com.wise.roomcontrol.activities.MainActivity;
 import com.wise.roomcontrol.adapters.ListaOpcoesAdapter;
 import com.wise.roomcontrol.classes.Sala;
+
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import static com.wise.roomcontrol.Dao.playTickSound;
 
@@ -91,6 +100,7 @@ public class MinhasSalasActivity extends AppCompatActivity {
                 startActivity(new Intent(MinhasSalasActivity.this,FormSalaActivity.class));
             }
         });
+        registerForContextMenu(lista);
     }
 
     private void atualizaResumoSala(Sala sala){
@@ -128,4 +138,37 @@ public class MinhasSalasActivity extends AppCompatActivity {
         onBackPressed();
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.context_main, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull final MenuItem item) {
+        playTickSound(MinhasSalasActivity.this);
+        int itemId = item.getItemId();
+        final AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        if(itemId==R.id.removedor){
+                new AlertDialog.Builder(this).setTitle("Remover sala")
+                        .setMessage("Esta ação é irreversível. Tem certeza que deseja continuar?")
+                        .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    Log.i("teste", "onClick: getItemId(menuInfo.position) = "+adapter.getItemId(menuInfo.position));
+                                    System.out.println(dao.ServerInOutput(true, "sala/remover", new String[]{"id"}, new Integer[]{adapter.getItem(menuInfo.position).getId()}));
+                                    finish();
+                                    overridePendingTransition(0, 0);
+                                    startActivity(getIntent());
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).setNegativeButton("Não", null).show();
+        }
+        return super.onContextItemSelected(item);
+    }
+
 }

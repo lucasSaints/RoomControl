@@ -29,6 +29,7 @@ public class Dao {
     static public List<Empresa> empresas = new ArrayList<>();
     //static public List<Reuniao> reunioes = new ArrayList<>();
     static public User logado;
+    static public Empresa empLogada;
     static final public String urlWS = "http://172.30.248.111:8080/ReservaDeSala/rest/";
 
     public String ServerInOutput(boolean in, String urlEnd, String[] variable, Object[] value) throws Exception{

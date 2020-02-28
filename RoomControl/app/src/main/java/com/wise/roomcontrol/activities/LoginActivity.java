@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.wise.roomcontrol.Dao;
 import com.wise.roomcontrol.R;
+import com.wise.roomcontrol.classes.Empresa;
 import com.wise.roomcontrol.classes.User;
 
 import org.json.JSONObject;
@@ -70,10 +71,13 @@ public class LoginActivity extends AppCompatActivity {
                             int emp = obj.getJSONObject("idOrganizacao").getInt("id");
                             System.out.println(emp);
                             dao.logado = new User(campoLogin.getText().toString(),campoSenha.getText().toString(),nome,emp,id,true);
+                            dao.empLogada = new Empresa(obj.getJSONObject("idOrganizacao").getString("nome"),obj.getJSONObject("idOrganizacao").getString("dominio"),obj.getJSONObject("idOrganizacao").getString("endereco"),obj.getJSONObject("idOrganizacao").getInt("id"),obj.getJSONObject("idOrganizacao").getString("tipoOrganizacao").charAt(0));
                             if(caixa.isChecked()){
                                 editor.putString("email",campoLogin.getText().toString());
                                 editor.putString("senha",campoSenha.getText().toString());
                                 editor.putBoolean("lembrarme",true);
+                                editor.putString("nomeEmpresa",dao.empLogada.getNome());
+                                editor.putString("enderecoEmpresa",dao.empLogada.getEndereco());
                             }
                             editor.commit();
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));

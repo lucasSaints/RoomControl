@@ -18,6 +18,14 @@ public class Empresa {
         return tipo;
     }
 
+    public Empresa(String nome, String dominio, String endereco, int id, char tipo) {
+        this.nome = nome;
+        this.dominio = dominio;
+        this.endereco = endereco;
+        this.id = id;
+        this.tipo = tipo;
+    }
+
     public List<Sala> salas = new ArrayList<>();
     static private int contadorId=1;
     final private Dao dao=new Dao();

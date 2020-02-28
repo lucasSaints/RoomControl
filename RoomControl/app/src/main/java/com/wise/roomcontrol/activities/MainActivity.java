@@ -7,6 +7,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -17,7 +19,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -35,6 +39,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.wise.roomcontrol.Dao.empLogada;
 import static com.wise.roomcontrol.Dao.playTickSound;
 import static java.lang.System.currentTimeMillis;
 
@@ -46,12 +51,16 @@ public class MainActivity extends AppCompatActivity {
     private static long msec=0;
     public static boolean onlyLogado;
     public static List<Boolean> salasNoFiltro = new ArrayList<>();
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         setContentView(R.layout.activity_main);
+        prefs=getApplicationContext().getSharedPreferences("Descartes",MODE_PRIVATE);
+        editor=prefs.edit();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -98,6 +107,15 @@ public class MainActivity extends AppCompatActivity {
                 navigationView.setVisibility(View.VISIBLE);
                 if(Build.VERSION.SDK_INT<17 || displayMetrics.widthPixels<300)
                     navigationView.getMenu().findItem(R.id.myslaves).setVisible(false);
+                TextView emp = navigationView.getHeaderView(0).findViewById(R.id.incName);
+                emp.setText(empLogada.getNome());
+                TextView end = navigationView.getHeaderView(0).findViewById(R.id.incEndre);
+                end.setText(empLogada.getEndereco());
+                try{
+                    navigationView.getHeaderView(0).findViewById(R.id.imageInc).setBackgroundColor(Color.parseColor(prefs.getString("color", null)));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
