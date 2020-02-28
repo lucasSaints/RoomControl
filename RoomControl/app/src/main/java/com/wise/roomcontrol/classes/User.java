@@ -10,11 +10,16 @@ public class User {
     private String user;
     private int empresaId;
     private int id;
+    private boolean ativo;
     static private int contadorId=1;
     final private Dao dao=new Dao();
 
     public int getEmpresaId() {
         return this.empresaId;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
     }
 
     public User(String mail, String senha, String user) {
@@ -26,12 +31,13 @@ public class User {
         contadorId++;
     }
 
-    public User(String mail, String senha, String user, int empresaId, int id) {
+    public User(String mail, String senha, String user, int empresaId, int id, boolean ativo) {
         this.mail = mail;
         this.senha = senha;
         this.user = user;
         this.empresaId = empresaId;
         this.id = id;
+        this.ativo = ativo;
     }
 
     public String getMail() {

@@ -35,7 +35,7 @@ public class Dao {
         try{
             JSONObject json = new JSONObject();
             String jsonEncoded="kyugasdykgufsdgkutsdagfiu";
-            if(in) {
+            if(in && variable.length>value.length) {
                 for(int i=0;i<value.length;i++){
                     json.put(variable[i], value[i]);
                 }
@@ -55,14 +55,14 @@ public class Dao {
             if(in)
                 conn.setDoOutput(true);
             conn.setRequestProperty("authorization", "secret");
-            if(!in){
+            if(!in || !(variable.length>value.length)){
                 for(int i=0;i<value.length;i++){
                     conn.setRequestProperty(variable[i], String.valueOf(value[i]));
                 }
             }else{
                 conn.setRequestProperty(variable[variable.length-1], jsonEncoded);
             }
-            conn.setConnectTimeout(10000);
+            conn.setConnectTimeout(7000);
             conn.connect();
 
             return getResultString(conn);
