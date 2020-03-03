@@ -27,7 +27,7 @@ public class ListaReunioesAdapter extends BaseAdapter {
     private Context context;
     static public final List<Reuniao> reunioes = new ArrayList<>();
     private Dao dao=new Dao();
-    private boolean soPlayer;
+    private boolean soPlayer=false;
 
     public ListaReunioesAdapter(Context context, List<Reuniao> reuniaos) {
         this.context = context;
@@ -146,7 +146,7 @@ public class ListaReunioesAdapter extends BaseAdapter {
         reunioes.clear();
         String[] a1 ={"id_sala"};
         String[] u1 ={"id"};
-        if(soPlayer) {
+        if(!soPlayer) {
             ListaOpcoesAdapter opcoes = new ListaOpcoesAdapter();
             opcoes.filtraSalas(dao.logado.getEmpresaId(), 0, false, false);
             try {

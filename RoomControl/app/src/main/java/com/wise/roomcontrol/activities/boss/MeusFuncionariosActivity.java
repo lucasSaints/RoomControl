@@ -57,16 +57,19 @@ public class MeusFuncionariosActivity extends AppCompatActivity {
                     .setPositiveButton(getString(R.string.confirmar), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            try {
-                                Dao dao = new Dao();
-                                System.out.println(dao.ServerInOutput(true, "usuario/remover", new String[]{"id"}, new Integer[]{adapter.getItem(menuInfo.position).getId()}));
-                                adapter.atualiza();
-                                finish();
-                                overridePendingTransition(0, 0);
-                                startActivity(getIntent());
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+                            Dao dao = new Dao();
+                            if(adapter.getItem(menuInfo.position).getId()!=dao.logado.getId()) {
+                                try {
+                                    System.out.println(dao.ServerInOutput(true, "usuario/remover", new String[]{"id"}, new Integer[]{adapter.getItem(menuInfo.position).getId()}));
+                                    adapter.atualiza();
+                                    finish();
+                                    overridePendingTransition(0, 0);
+                                    startActivity(getIntent());
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }else
+                                Toast.makeText(MeusFuncionariosActivity.this, "Você não pode se banir", Toast.LENGTH_SHORT).show();
                         }
                     }).setNegativeButton("Não", null);
             if(adapter.getItem(menuInfo.position).isAtivo())

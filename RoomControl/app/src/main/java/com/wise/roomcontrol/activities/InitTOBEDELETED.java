@@ -21,7 +21,7 @@ public class InitTOBEDELETED extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         //getResources().setBoolean
         dao.logado=null;
-        Empresa wise=new Empresa("Wise: Fábrica de Softwares","wises.com.br",'M',true);
+        /*Empresa wise=new Empresa("Wise: Fábrica de Softwares","wises.com.br",'M',true);
         Empresa sraw=new Empresa("Sraw Rats: Fábrica de Hardwares","srawrats.io",'M',true);
         Sala cowork=new Sala("Sala de Coworking",16,2,"4",true,true);
         wise.addSala(cowork);
@@ -45,7 +45,7 @@ public class InitTOBEDELETED extends AppCompatActivity {
         sraw.addSala(gondor);
         Sala shire=new Sala("Condado",50,2,"1",false,false);
         sraw.addSala(shire);
-        User clov=new User("clovis@wises.com.br","maturity3","Clovis");
+        User clov=new User("clovis@wises.com.br","maturity3","Clovis");*/
         startActivity(new Intent(this,LoginActivity.class));
         finish();
     }

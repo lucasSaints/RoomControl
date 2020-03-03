@@ -106,10 +106,10 @@ public class RegisterActivity extends AppCompatActivity {
                             spi.setEnabled(true);
                         }
                     }else{
-                        Toast.makeText(RegisterActivity.this, getString(R.string.preencha_corretamente),Toast.LENGTH_SHORT);
+                        Toast.makeText(RegisterActivity.this, getString(R.string.preencha_corretamente),Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Toast.makeText(RegisterActivity.this, getString(R.string.senha_min_3_carac),Toast.LENGTH_SHORT);
+                    Toast.makeText(RegisterActivity.this, getString(R.string.senha_min_3_carac),Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -56,7 +56,6 @@ public class FormReuniaoActivity extends AppCompatActivity {
     private Reuniao reuniao;
     final private Dao dao = new Dao();
     private int idsala;
-    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -334,7 +333,7 @@ public class FormReuniaoActivity extends AppCompatActivity {
         Log.i("teste", "FILTROS---  dia:"+data[0]+"/"+data[1]+"/"+data[2]+" -- hora de inicio: "+hora1[0]+":"+hora1[1]+" -- hora de termino: "+hora2[0]+":"+hora2[1]+"projetor: "+projetor);
         adapterAux.filtraSalas(dao.logado.getEmpresaId(),computadores,projetor,ac);
         try {
-            adapter = new ArrayAdapter<>(FormReuniaoActivity.this, android.R.layout.simple_spinner_item, adapterAux.getAsString(3));
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(FormReuniaoActivity.this, android.R.layout.simple_spinner_item, adapterAux.getAsString(3));
             drop.setAdapter(adapter);
         }catch(Exception e){
             e.printStackTrace();

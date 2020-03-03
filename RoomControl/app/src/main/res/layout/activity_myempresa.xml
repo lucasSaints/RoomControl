@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorButtonNormal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tit"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/design_default_color_primary"
+        android:fontFamily="sans-serif-smallcaps"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:text="TextView"
+        android:textColor="@color/colorText"
+        android:textSize="30sp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        app:srcCompat="@color/colorFakeBlack" />
+
+    <TextView
+        android:id="@+id/rua"
+        style="@style/Base.TextAppearance.Widget.AppCompat.ExpandedMenu.Item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="Rua dos bôbos, número 0"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/quantSalas"
+        style="@style/Base.TextAppearance.Widget.AppCompat.ExpandedMenu.Item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="5 salas"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/quantReunioes"
+        style="@style/Base.TextAppearance.Widget.AppCompat.ExpandedMenu.Item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="15 reuniões marcadas"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/quantMembros"
+        style="@style/Base.TextAppearance.Widget.AppCompat.ExpandedMenu.Item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="27 membros"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/altCor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/colorDesaturated"
+        android:gravity="center_horizontal|center_vertical"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="@string/alterar_cor_da_empresa"
+        android:textColor="@color/colorText"
+        android:textSize="17sp" />
+</LinearLayout>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
-        <item android:title="Minha empresa"
+        <item android:title="@string/myenterprise"
             android:icon="@drawable/inc"
             android:id="@+id/myinc"/>
 
-        <item android:title="Gerenciar salas"
+        <item android:title="@string/geren"
             android:icon="@drawable/room"
             android:id="@+id/mysalas"/>
 
-        <item android:title="Gerenciar membros"
+        <item android:title="@string/geren"
             android:icon="@drawable/members"
             android:id="@+id/myslaves"/>
     </group>

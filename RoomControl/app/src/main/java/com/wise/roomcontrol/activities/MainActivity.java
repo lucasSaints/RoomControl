@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
     public static boolean onlyLogado;
     public static List<Boolean> salasNoFiltro = new ArrayList<>();
     private SharedPreferences prefs;
-    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,19 +59,19 @@ public class MainActivity extends AppCompatActivity {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         setContentView(R.layout.activity_main);
         prefs=getApplicationContext().getSharedPreferences("Descartes",MODE_PRIVATE);
-        editor=prefs.edit();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
-        onlyLogado=true;
-        if(!onlyLogado)
+        onlyLogado=false;
+        /*if(onlyLogado)
             setTitle("Minhas reuniões");
-        else
+        else*/
             setTitle("Reuniões marcadas");
         adapter = new ListaReunioesAdapter(MainActivity.this);
+        adapter.setSoPlayer(onlyLogado);
         adapter.atualiza();
         adapterSalas = new ListaOpcoesAdapter(MainActivity.this);
         adapterSalas.refresco();
@@ -80,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
             salasNoFiltro.add(true);
         }
         ListView lista = findViewById(R.id.listareunioes);
+        registerForContextMenu(lista);
         lista.setAdapter(adapter);
         /*lista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -105,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("teste", "onCreate: eh tetra");
                 NavigationView navigationView = findViewById(R.id.nav);
                 navigationView.setVisibility(View.VISIBLE);
+                navigationView.getMenu().findItem(R.id.mysalas).setTitle(getString(R.string.geren)+" "+getString(R.string.salas));
+                navigationView.getMenu().findItem(R.id.myslaves).setTitle(getString(R.string.geren)+" "+getString(R.string.members));
                 if(Build.VERSION.SDK_INT<17 || displayMetrics.widthPixels<300)
                     navigationView.getMenu().findItem(R.id.myslaves).setVisible(false);
                 TextView emp = navigationView.getHeaderView(0).findViewById(R.id.incName);
@@ -137,14 +139,13 @@ public class MainActivity extends AppCompatActivity {
         }catch(Exception e){
             e.printStackTrace();
         }
-        registerForContextMenu(lista);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.option_main,menu);
         invalidateOptionsMenu();
-        if(onlyLogado) {
+        if(!onlyLogado) {
             menu.findItem(R.id.switchreservas).setTitle("Minhas reuniões");
             setTitle("Reuniões marcadas");
         }else {
@@ -159,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
         playTickSound(MainActivity.this);
         if(item.getItemId() == R.id.switchreservas) {
             onlyLogado=!onlyLogado;
+            adapter.setSoPlayer(onlyLogado);
             adapter.atualiza();
         }else{
             AlertDialog.Builder bob = new AlertDialog.Builder(MainActivity.this);

@@ -42,7 +42,6 @@ public class MinhasSalasActivity extends AppCompatActivity {
 
     final private Dao dao=new Dao();
     private SharedPreferences prefs;
-    private SharedPreferences.Editor editor;
     private ListaOpcoesAdapter adapter=new ListaOpcoesAdapter();
     private TextView nome;
     private TextView local;
@@ -56,15 +55,14 @@ public class MinhasSalasActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        prefs=getApplicationContext().getSharedPreferences("Inc",MODE_PRIVATE);
-        editor=prefs.edit();
+        prefs=getApplicationContext().getSharedPreferences("Descartes",MODE_PRIVATE);
         setContentView(R.layout.activity_salas);
         Toolbar tolbar = findViewById(R.id.tolbar);
         setSupportActionBar(tolbar);
         ImageView fundo = findViewById(R.id.fundoSalas);
         try{
             tolbar.setBackgroundColor(Color.parseColor(prefs.getString("color", null)));
-            fundo.setBackgroundColor(ColorUtils.blendARGB(Color.parseColor(prefs.getString("color", null)),Color.parseColor("#171717"),0.42f));
+            fundo.setBackgroundColor(ColorUtils.blendARGB(Color.parseColor(prefs.getString("color", null)),Color.parseColor("#121212"),0.42f));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -107,19 +105,19 @@ public class MinhasSalasActivity extends AppCompatActivity {
         if(sala==null){
             nome.setText("");
             local.setText("");
-            dataAlt.setText("Data de alteração: ");
-            dataCria.setText("Data de criação: ");
-            pcs.setText("PCs: ");
-            capac.setText("Capacidade: ");
+            dataAlt.setText(getString(R.string.data_alteracao)+" ");
+            dataCria.setText(getString(R.string.data_criacao)+" ");
+            pcs.setText(getString(R.string.computadores_alt)+": ");
+            capac.setText(getString(R.string.capacidade_de_pessoas_alt)+": ");
             ar.setChecked(false);
             proj.setChecked(false);
         }else{
             nome.setText(sala.getName());
             local.setText(sala.getAndar());
-            dataAlt.setText("Data de alteração: "+sala.getDataAlteracao());
-            dataCria.setText("Data de criação: "+sala.getDataCriacao());
-            pcs.setText("PCs: "+sala.getPcs());
-            capac.setText("Capacidade: "+sala.getQuantPessoas());
+            dataAlt.setText(getString(R.string.data_alteracao)+" "+sala.getDataAlteracao());
+            dataCria.setText(getString(R.string.data_criacao)+" "+sala.getDataCriacao());
+            pcs.setText(getString(R.string.computadores_alt)+": "+sala.getPcs());
+            capac.setText(getString(R.string.capacidade_de_pessoas_alt)+": ");
             ar.setChecked(sala.temAc());
             proj.setChecked(sala.temProjetor());
         }
