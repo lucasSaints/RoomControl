@@ -97,10 +97,12 @@ public class RegisterActivity extends AppCompatActivity {
                 Log.i("teste", "clicado");
                 if(!campoSenha.getText().toString().isEmpty()&&campoSenha.getText().toString().length()>=3) {
                     if(!campoLogin.getText().toString().isEmpty()&&!campoUser.getText().toString().isEmpty()) {
-                        if (dao.validaCadastro(campoLogin.getText().toString(), campoSenha.getText().toString(), campoUser.getText().toString(), empSelected).equals("Usuário criado com sucesso")) {
+                        String resulta=dao.validaCadastro(campoLogin.getText().toString(), campoSenha.getText().toString(), campoUser.getText().toString(), empSelected);
+                        if (resulta.equals("Usuário criado com sucesso")) {
                             Log.i("teste", "cadastro validado");
                             finish();
                         } else {
+                            Toast.makeText(RegisterActivity.this, resulta, Toast.LENGTH_LONG);
                             findViewById(R.id.loadingBar).setVisibility(View.GONE);
                             botao.setEnabled(true);
                             spi.setEnabled(true);

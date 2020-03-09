@@ -1,12 +1,17 @@
 package com.wise.roomcontrol.classes;
 
+import com.wise.roomcontrol.R;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Reuniao {
     private String descricao;
     private Sala lugar;
-    private int[] data;
+    private int[] data, ultimaRepeticao;
     private int[] hora1, hora2;
+    private Boolean[] repeticoes;
     //private int computadores;
     //private boolean ac, projetor;
     private int id, locadorId;
@@ -50,6 +55,59 @@ public class Reuniao {
 
     public int[] getHora2() {
         return hora2;
+    }
+
+    public Boolean[] getRepeticoes() {
+        return repeticoes;
+    }
+
+    public static String getRepeticoesAsStringAlt(Boolean[] repeticos) {
+        String repe="";
+        for (Boolean dia:repeticos) {   // 0,0,0,0,0,0,0
+            if(dia)
+                repe=repe.concat("1");
+            else
+                repe=repe.concat("0");
+            if(repe.length()<12)
+                repe=repe.concat(",");
+        }
+        return repe;
+    }
+
+    public String getRepeticoesAsWeekDay(String[] weekDays) {
+        String repe="";
+        for(int i=0;i<7;i++){
+            if(this.repeticoes[i]) {
+                if(repe.length()>1)
+                    repe=repe.concat(", ");
+                repe=repe.concat(weekDays[i]);
+            }
+        }
+        if(repe.length()<12){
+            String aux="";
+            for (int i = 0; i < 12-repe.length(); i++) {
+                aux+=" ";
+            }
+            repe=aux+repe;
+        }
+        return repe;
+    }
+
+    public void setRepeticoes(String repeticoes) {
+        Boolean[] repetics = new Boolean[7];
+        String[] repeticoes2=repeticoes.split(",");
+        for (int i=0;i<repeticoes2.length;i++) {
+            repetics[i] = (repeticoes2[i].equals("1"));
+        }
+        this.repeticoes = repetics;
+    }
+
+    public int[] getUltimaRepeticao() {
+        return ultimaRepeticao;
+    }
+
+    public void setUltimaRepeticao(int[] ultimaRepeticao) {
+        this.ultimaRepeticao = ultimaRepeticao;
     }
 
     public String getHorario(int[] hora){

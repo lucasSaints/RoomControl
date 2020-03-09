@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -10,7 +8,7 @@
     <ImageView
         android:id="@+id/imageInc"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="135dp"
         android:background="@color/design_default_color_primary"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,19 +36,23 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="7dp"
         android:layout_marginLeft="7dp"
+        android:layout_marginTop="32dp"
         android:paddingLeft="12dp"
         android:paddingTop="7dp"
         android:paddingRight="7dp"
         android:shadowColor="@color/colorFakeBlack"
         android:text="Wise - Fábrica de Software"
         android:textColor="@color/colorText"
-        android:textSize="22dp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:fontFamily="sans-serif-smallcaps"
         app:layout_constraintBottom_toTopOf="@+id/incEndre"
         app:layout_constraintEnd_toEndOf="@+id/textBackground"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/textBackground" />
+        app:layout_constraintStart_toStartOf="@id/textBackground"
+        app:layout_constraintTop_toTopOf="@+id/imageInc"
+        android:paddingStart="12dp"
+        android:paddingEnd="7dp" />
 
     <TextView
         android:id="@+id/incEndre"
@@ -58,15 +60,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="7dp"
         android:layout_marginLeft="7dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="32dp"
         android:paddingLeft="12dp"
+        android:paddingEnd="12dp"
         android:paddingBottom="7dp"
         android:text="Rua Professor Pardal, 420"
         android:textColor="?attr/colorButtonNormal"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="@+id/imageInc"
         app:layout_constraintEnd_toEndOf="@+id/textBackground"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/textBackground" />
+        app:layout_constraintStart_toStartOf="@id/textBackground"
+        android:paddingStart="12dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

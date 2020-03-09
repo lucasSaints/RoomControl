@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/linearLayout4"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorDarkGray"
-        android:orientation="vertical">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorDarkGray"
+    android:orientation="vertical">
 
         <ScrollView
             android:layout_width="0dp"
@@ -19,7 +17,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:paddingBottom="42dp">
 
                 <EditText
@@ -33,7 +31,7 @@
                     android:layout_marginRight="42dp"
                     android:background="?attr/colorButtonNormal"
                     android:ems="10"
-                    android:hint="Nome da sala"
+                    android:hint="@string/nome_da_sala"
                     android:inputType="textPersonName"
                     android:paddingLeft="6dp"
                     android:paddingTop="9dp"
@@ -58,7 +56,7 @@
                     android:layout_marginRight="70dp"
                     android:background="?attr/colorButtonNormal"
                     android:ems="10"
-                    android:hint="Andar"
+                    android:hint="@string/floor"
                     android:inputType="textPersonName"
                     android:paddingLeft="6dp"
                     android:paddingTop="9dp"
@@ -73,7 +71,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/nomeSala" />
 
                 <ImageView
-                    android:id="@+id/imageView2"
                     android:layout_width="0dp"
                     android:layout_height="2dp"
                     app:layout_constraintBottom_toBottomOf="@+id/nomeSala"
@@ -82,7 +79,6 @@
                     app:srcCompat="@color/colorFakeBlack" />
 
                 <ImageView
-                    android:id="@+id/imageView3"
                     android:layout_width="0dp"
                     android:layout_height="2dp"
                     app:layout_constraintBottom_toBottomOf="@+id/andarSala"
@@ -115,7 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="A sala possui um projetor?"
+                    android:text="@string/a_sala_possui_um_projetor"
                     android:textColor="?attr/colorButtonNormal"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -127,7 +123,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="A sala possui um ar-condicionado?"
+                    android:text="@string/a_sala_possui_um_ar_condicionado"
                     android:textColor="?attr/colorButtonNormal"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -135,13 +131,12 @@
                     app:layout_constraintTop_toBottomOf="@+id/switch1" />
 
                 <TextView
-                    android:id="@+id/simACText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:gravity="center_horizontal|center_vertical"
-                    android:text="Sim"
+                    android:text="@string/yes"
                     android:textColor="@color/colorGreyText"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/switch2"
@@ -149,13 +144,12 @@
                     app:layout_constraintTop_toTopOf="@+id/switch2" />
 
                 <TextView
-                    android:id="@+id/simProjText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:gravity="center_horizontal|center_vertical"
-                    android:text="Sim"
+                    android:text="@string/yes"
                     android:textColor="@color/colorGreyText"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/switch1"
@@ -163,13 +157,12 @@
                     app:layout_constraintTop_toTopOf="@+id/switch1" />
 
                 <TextView
-                    android:id="@+id/naoACText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
                     android:gravity="center_horizontal|center_vertical"
-                    android:text="Não"
+                    android:text="@string/no"
                     android:textColor="@color/colorGreyText"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/switch2"
@@ -177,13 +170,12 @@
                     app:layout_constraintTop_toTopOf="@+id/switch2" />
 
                 <TextView
-                    android:id="@+id/naoProjText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
                     android:gravity="center_horizontal|center_vertical"
-                    android:text="Não"
+                    android:text="@string/no"
                     android:textColor="@color/colorGreyText"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/switch1"
@@ -217,7 +209,7 @@
                     android:layout_marginRight="2dp"
                     android:background="?attr/colorButtonNormal"
                     android:ems="10"
-                    android:hint="Capacidade de pessoas"
+                    android:hint="@string/capacidade_de_pessoas"
                     android:inputType="textPersonName"
                     android:paddingLeft="6dp"
                     android:paddingTop="9dp"
@@ -256,7 +248,7 @@
                     android:layout_marginRight="2dp"
                     android:background="?attr/colorButtonNormal"
                     android:ems="10"
-                    android:hint="Quantidade de PCs"
+                    android:hint="@string/quantidade_de_pcs"
                     android:inputType="textPersonName"
                     android:paddingLeft="6dp"
                     android:paddingTop="9dp"
