@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -44,7 +45,7 @@ import static com.wise.roomcontrol.Dao.playTickSound;
 import static java.lang.System.currentTimeMillis;
 
 public class MainActivity extends AppCompatActivity {
-    private ListaReunioesAdapter adapter=new ListaReunioesAdapter(MainActivity.this);
+    private ListaReunioesAdapter adapter;
     private ListaOpcoesAdapter adapterSalas=new ListaOpcoesAdapter(MainActivity.this);
     final private Dao dao=new Dao();
     private int toques=0;
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         setContentView(R.layout.activity_main);
+        adapter=new ListaReunioesAdapter(MainActivity.this);
         prefs=getApplicationContext().getSharedPreferences("Descartes",MODE_PRIVATE);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

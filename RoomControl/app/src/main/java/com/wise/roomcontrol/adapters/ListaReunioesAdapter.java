@@ -28,6 +28,7 @@ public class ListaReunioesAdapter extends BaseAdapter {
     static public final List<Reuniao> reunioes = new ArrayList<>();
     private Dao dao=new Dao();
     private boolean soPlayer=false;
+    public String[] weekDays;
 
     public ListaReunioesAdapter(Context context, List<Reuniao> reuniaos) {
         this.context = context;
@@ -36,6 +37,7 @@ public class ListaReunioesAdapter extends BaseAdapter {
 
     public ListaReunioesAdapter(Context context) {
         this.context = context;
+        weekDays = new String[]{context.getString(R.string.sundayShort), context.getString(R.string.mondayShort), context.getString(R.string.tuesdayShort), context.getString(R.string.wednesdayShort), context.getString(R.string.thursdayShort), context.getString(R.string.fridayShort), context.getString(R.string.saturdayShort)};
         try {
             soPlayer = MainActivity.onlyLogado;
         }catch (Exception e){
@@ -90,15 +92,26 @@ public class ListaReunioesAdapter extends BaseAdapter {
         }
         TextView descri = viewCriada.findViewById(R.id.descrp);//Insere texto de descrição da reunião
         descri.setText(reuniao.getDescricao());                //   ''      ''      ''       ''
-        TextView dia=viewCriada.findViewById(R.id.data);      //¬
-        String auxString="";                                   //
-        if(reuniao.getData(0)<10)                              //
-            auxString="0";                                     //
-        auxString+=reuniao.getData(0)+"/";                     //  Formata e insere texto de data
-        if(reuniao.getData(1)<10)                              //
-            auxString+="0";                                    //
-        auxString+=reuniao.getData(1)+"/"+reuniao.getData(2);  //
-        dia.setText(auxString);                               //¬
+        TextView dia=viewCriada.findViewById(R.id.data);                //¬
+        boolean auxBool=false;                                           //
+        for (int i = 0; i < reuniao.getRepeticoes().length; i++) {       //
+            Log.i("auxbool", reuniao.getDescricao()+" tem repeticao no dia "+weekDays[i]+": "+reuniao.getRepeticoes()[i]);
+            if(reuniao.getRepeticoes()[i])                               //
+                auxBool=true;                                            //
+        }                                                                //
+        Log.i("auxbool", "getView: "+auxBool);                           //
+        if(auxBool){                                                     //
+            dia.setText(reuniao.getRepeticoesAsWeekDay(weekDays));               //
+        }else {                                                          //  Formata e insere texto de data
+            String auxString = "";                                       //
+            if (reuniao.getData(0) < 10)                                 //
+                auxString = "0";                                         //
+            auxString += reuniao.getData(0) + "/";                       //
+            if (reuniao.getData(1) < 10)                                 //
+                auxString += "0";                                        //
+            auxString += reuniao.getData(1) + "/" + reuniao.getData(2);  //
+            dia.setText(auxString);                                      //
+        }                                                               //¬
         TextView horario=viewCriada.findViewById(R.id.horario);                                           //  Formata e insere texto de horário
         horario.setText(reuniao.getHorario(reuniao.getHora1())+" - "+reuniao.getHorario(reuniao.getHora2())); //   ''      ''       ''      ''
         return viewCriada;
@@ -238,6 +251,7 @@ public class ListaReunioesAdapter extends BaseAdapter {
             if (ativo) {
                 Reuniao newReuniao = new Reuniao(descri, idUser, sala, date, hour1, hour2);
                 newReuniao.setId(id);
+                newReuniao.setRepeticoes(obj.getString("repeticoes"));
                 reunioes.add(newReuniao);
             }
         }
