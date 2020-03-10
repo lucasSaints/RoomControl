@@ -29,6 +29,7 @@
         app:layout_constraintVertical_bias="1.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/consLay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -36,10 +37,16 @@
                 android:id="@+id/fundoCalend"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginRight="40dp"
                 app:layout_constraintBottom_toBottomOf="@+id/calendarView"
-                app:layout_constraintEnd_toEndOf="@+id/calendarView"
-                app:layout_constraintStart_toStartOf="@+id/calendarView"
-                app:layout_constraintTop_toTopOf="@+id/calendarView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/switchMode"
+                app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@color/colorGreyText" />
 
             <EditText
@@ -69,7 +76,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:layout_marginLeft="40dp"
-                android:layout_marginTop="25dp"
                 android:layout_marginEnd="40dp"
                 android:layout_marginRight="40dp"
                 android:contentDescription="@string/escolha_data_reuniao_calendrio"
@@ -77,7 +83,7 @@
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/descripText" />
+                app:layout_constraintTop_toBottomOf="@+id/switchMode" />
 
             <EditText
                 android:id="@+id/horaText"
@@ -95,7 +101,7 @@
                 android:textSize="17sp"
                 app:layout_constraintEnd_toStartOf="@+id/pcText"
                 app:layout_constraintStart_toStartOf="@+id/fundoCalend"
-                app:layout_constraintTop_toBottomOf="@+id/calendarView"
+                app:layout_constraintTop_toBottomOf="@id/fundoCalend"
                 tools:targetApi="lollipop" />
 
             <EditText
@@ -114,7 +120,7 @@
                 android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="@+id/fundoCalend"
                 app:layout_constraintStart_toEndOf="@+id/pcText"
-                app:layout_constraintTop_toBottomOf="@+id/calendarView"
+                app:layout_constraintTop_toBottomOf="@id/fundoCalend"
                 tools:targetApi="lollipop" />
 
             <EditText
@@ -130,9 +136,9 @@
                 android:inputType="number"
                 android:textColor="@color/colorText"
                 android:textColorHint="@color/colorGreyText"
-                app:layout_constraintEnd_toEndOf="@+id/calendarView"
-                app:layout_constraintStart_toStartOf="@+id/calendarView"
-                app:layout_constraintTop_toBottomOf="@+id/calendarView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fundoCalend"
                 tools:ignore="HardcodedText"
                 tools:targetApi="lollipop" />
 
@@ -152,15 +158,16 @@
                 android:id="@+id/switchProjetor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
                 android:contentDescription="@string/precisa_de_projetor"
                 app:layout_constraintBottom_toBottomOf="@+id/pcText"
                 app:layout_constraintEnd_toStartOf="@+id/pcText"
                 app:layout_constraintStart_toStartOf="@+id/horaText"
-                app:layout_constraintTop_toTopOf="@+id/pcText"
-                android:layout_marginEnd="50dp" />
+                app:layout_constraintTop_toTopOf="@+id/pcText" />
 
             <TextView
+                android:id="@+id/textProj"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -175,15 +182,16 @@
                 android:id="@+id/switchAC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
                 android:layout_marginLeft="50dp"
                 android:contentDescription="@string/precisa_de_ar_condicionado"
                 app:layout_constraintBottom_toBottomOf="@+id/pcText"
                 app:layout_constraintEnd_toEndOf="@+id/horaText2"
                 app:layout_constraintStart_toEndOf="@+id/pcText"
-                app:layout_constraintTop_toTopOf="@+id/pcText"
-                android:layout_marginStart="50dp" />
+                app:layout_constraintTop_toTopOf="@+id/pcText" />
 
             <TextView
+                android:id="@+id/textAC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -251,11 +259,255 @@
                 android:text="@string/choosedate"
                 android:textColor="@color/colorText"
                 android:textSize="17sp"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/fundoCalend"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/fundoCalend" />
+
+            <Switch
+                android:id="@+id/switchMode"
+                style="@style/TextAppearance.AppCompat.Widget.Switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorFakeBlackOverlay"
+                android:checked="false"
+                android:paddingLeft="8dp"
+                android:paddingTop="3dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="3dp"
+                android:textOff=" "
+                android:textOn=" "
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descripText" />
+
+            <TextView
+                android:id="@+id/rotina"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginLeft="12dp"
+                android:fontFamily="sans-serif-condensed-light"
+                android:paddingBottom="2dp"
+                android:scaleX="1.1"
+                android:scaleY="0.9"
+                android:text="Reunião de rotina"
+                android:textColor="@color/colorGreyText"
+                app:layout_constraintBottom_toBottomOf="@+id/switchMode"
+                app:layout_constraintStart_toEndOf="@+id/switchMode"
+                app:layout_constraintTop_toTopOf="@+id/switchMode" />
+
+            <Switch
+                android:id="@+id/domSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="37dp"
+                android:layout_marginLeft="37dp"
+                android:layout_marginTop="24dp"
+                android:checked="false"
+                android:rotation="-90"
+                android:scaleX="1.1"
+                android:scaleY="1.1"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toStartOf="@id/quaSwitch"
+                app:layout_constraintStart_toEndOf="@+id/segSwitch"
+                app:layout_constraintTop_toBottomOf="@+id/terSwitch" />
+
+            <Switch
+                android:id="@+id/segSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="42dp"
+                android:checked="false"
+                android:rotation="-90"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="@+id/fundoCalend"
+                app:layout_constraintTop_toTopOf="@+id/fundoCalend" />
+
+            <Switch
+                android:id="@+id/terSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="42dp"
+                android:checked="false"
+                android:rotation="-90"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toStartOf="@id/quaSwitch"
+                app:layout_constraintStart_toEndOf="@+id/segSwitch"
+                app:layout_constraintTop_toTopOf="@+id/fundoCalend" />
+
+            <Switch
+                android:id="@+id/quaSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="42dp"
+                android:checked="false"
+                android:rotation="-90"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/fundoCalend" />
+
+            <Switch
+                android:id="@+id/quiSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="42dp"
+                android:checked="false"
+                android:rotation="-90"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toStartOf="@+id/sexSwitch"
+                app:layout_constraintStart_toEndOf="@+id/quaSwitch"
+                app:layout_constraintTop_toTopOf="@+id/fundoCalend" />
+
+            <Switch
+                android:id="@+id/sexSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="42dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginRight="32dp"
+                android:checked="false"
+                android:rotation="-90"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/fundoCalend"
+                app:layout_constraintTop_toTopOf="@+id/fundoCalend" />
+
+            <Switch
+                android:id="@+id/sabSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="37dp"
+                android:layout_marginRight="37dp"
+                android:checked="false"
+                android:rotation="-90"
+                android:scaleX="1.1"
+                android:scaleY="1.1"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toStartOf="@+id/sexSwitch"
+                app:layout_constraintStart_toEndOf="@+id/quaSwitch"
+                app:layout_constraintTop_toBottomOf="@+id/terSwitch" />
+
+            <TextView
+                android:id="@+id/domText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="@string/sundayShort"
+                android:textSize="12sp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/domSwitch"
+                app:layout_constraintStart_toStartOf="@+id/domSwitch"
+                app:layout_constraintTop_toBottomOf="@+id/domSwitch" />
+
+            <TextView
+                android:id="@+id/segText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="@string/mondayShort"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/segSwitch"
+                app:layout_constraintEnd_toEndOf="@+id/segSwitch"
+                app:layout_constraintStart_toStartOf="@+id/segSwitch" />
+
+            <TextView
+                android:id="@+id/terText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="@string/tuesdayShort"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/terSwitch"
+                app:layout_constraintEnd_toEndOf="@+id/terSwitch"
+                app:layout_constraintStart_toStartOf="@+id/terSwitch" />
+
+            <TextView
+                android:id="@+id/quaText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="@string/wednesdayShort"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/quaSwitch"
+                app:layout_constraintEnd_toEndOf="@+id/quaSwitch"
+                app:layout_constraintStart_toStartOf="@+id/quaSwitch" />
+
+            <TextView
+                android:id="@+id/quiText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="@string/thursdayShort"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/quiSwitch"
+                app:layout_constraintEnd_toEndOf="@+id/quiSwitch"
+                app:layout_constraintStart_toStartOf="@+id/quiSwitch" />
+
+            <TextView
+                android:id="@+id/sexText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="@string/fridayShort"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/sexSwitch"
+                app:layout_constraintEnd_toEndOf="@+id/sexSwitch"
+                app:layout_constraintStart_toStartOf="@+id/sexSwitch" />
+
+            <TextView
+                android:id="@+id/sabText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="@string/saturdayShort"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/sabSwitch"
+                app:layout_constraintStart_toStartOf="@+id/sabSwitch"
+                app:layout_constraintTop_toBottomOf="@+id/domSwitch" />
+
+            <Button
+                android:id="@+id/alertDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="?android:attr/panelBackground"
+                android:contentDescription="@string/escolha_data_reuniao_calendrio"
+                android:minDate="01/01/2020"
+                android:paddingLeft="12dp"
+                android:paddingTop="4dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="4dp"
+                android:shadowColor="@color/colorAccent"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="6"
+                android:text="Escolher data limite"
+                android:textColor="#FFFFE6EA"
+                android:textSize="14sp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/domText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

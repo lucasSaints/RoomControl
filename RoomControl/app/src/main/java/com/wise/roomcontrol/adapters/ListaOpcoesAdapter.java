@@ -42,6 +42,14 @@ public class ListaOpcoesAdapter extends BaseAdapter {
     public ListaOpcoesAdapter() {
     }
 
+    public int findSalaOfId(int id){
+        for (int i = 0; i < salasNaEmpresa.size(); i++) {
+            if(salasNaEmpresa.get(i).getId()==id)
+                return i;
+        }
+        return (-1);
+    }
+
     @Override
     public int getCount() {
         return listaFiltrada.size();
@@ -165,7 +173,7 @@ public class ListaOpcoesAdapter extends BaseAdapter {
         }*/
 
         for (Sala i : salasNaEmpresa) {
-            //if (i.getPcs() >= pcs) {
+            if (i.getPcs() >= pcs) {
                 if (projet == true && i.temProjetor())
                     auxBool = true;
                 if (projet == false || auxBool == true) {
@@ -176,7 +184,7 @@ public class ListaOpcoesAdapter extends BaseAdapter {
                         listaFiltrada.add(i);
                     }
                 }
-            //}
+            }
         }
         notifyDataSetChanged();
     }

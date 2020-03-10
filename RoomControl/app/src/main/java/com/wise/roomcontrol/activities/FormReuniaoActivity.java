@@ -1,7 +1,6 @@
 package com.wise.roomcontrol.activities;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,8 +10,6 @@ import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,10 +19,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.wise.roomcontrol.Dao;
 import com.wise.roomcontrol.R;
@@ -56,6 +55,21 @@ public class FormReuniaoActivity extends AppCompatActivity {
     private Reuniao reuniao;
     final private Dao dao = new Dao();
     private int idsala;
+    private Switch seg;
+    private Switch ter;
+    private Switch qua;
+    private Switch qui;
+    private Switch sex;
+    private Switch sab;
+    private Switch dom;
+    private TextView segText;
+    private TextView terText;
+    private TextView quaText;
+    private TextView quiText;
+    private TextView sexText;
+    private TextView sabText;
+    private TextView domText;
+    private Button alertaWeek;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +80,9 @@ public class FormReuniaoActivity extends AppCompatActivity {
         //possibilidades=new JSONObject();
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final EditText campoDescricao=findViewById(R.id.descripText);
+        final EditText horaInicio=findViewById(R.id.horaText);
+        final EditText horaFim=findViewById(R.id.horaText2);
+        final EditText pcs=findViewById(R.id.pcText);
         campoDescricao.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -80,12 +97,43 @@ public class FormReuniaoActivity extends AppCompatActivity {
                 descricao=campoDescricao.getText().toString();
             }
         });
-        //locador=dao.logado.getUser();
-
         final CalendarView calendario=findViewById(R.id.calendarView);
         final Button alertaCalendario=findViewById(R.id.alertCalendar);
         final Switch projet=findViewById(R.id.switchProjetor);
         final Switch arcon=findViewById(R.id.switchAC);
+        seg=findViewById(R.id.segSwitch);
+        ter=findViewById(R.id.terSwitch);
+        qua=findViewById(R.id.quaSwitch);
+        qui=findViewById(R.id.quiSwitch);
+        sex=findViewById(R.id.sexSwitch);
+        sab=findViewById(R.id.sabSwitch);
+        dom=findViewById(R.id.domSwitch);
+        segText=findViewById(R.id.segText);
+        terText=findViewById(R.id.terText);
+        quaText=findViewById(R.id.quaText);
+        quiText=findViewById(R.id.quiText);
+        sexText=findViewById(R.id.sexText);
+        sabText=findViewById(R.id.sabText);
+        domText=findViewById(R.id.domText);
+        alertaWeek = findViewById(R.id.alertDate);
+
+        final Switch modo = findViewById(R.id.switchMode);
+
+        modo.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
+                atualizaLayoutCalendario(calendario, alertaCalendario, isChecked);
+                if(isChecked){
+                    setWeekItemsVisib(View.VISIBLE);
+                    setConstraint(R.id.alertDate);
+                }else{
+                    setWeekItemsVisib(View.GONE);
+                    setConstraint(R.id.calendarView);
+                }
+            }
+        });
+
+        atualizaLayoutCalendario(calendario, alertaCalendario, modo.isChecked());
 
         if(Build.VERSION.SDK_INT<20){
             arcon.setTextOff(" ");
@@ -93,25 +141,13 @@ public class FormReuniaoActivity extends AppCompatActivity {
             projet.setTextOff(" ");
             projet.setTextOn(" ");
             //calendario.setLayoutParams(new ConstraintLayout.LayoutParams(calendario.getWidth(),330));
-            calendario.setVisibility(View.INVISIBLE);
             alertaCalendario.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(FormReuniaoActivity.this);
-                    final DatePicker pique = new DatePicker(FormReuniaoActivity.this);
-                    pique.setMinDate(Calendar.getInstance().getTimeInMillis()-1000);
-                    pique.setCalendarViewShown(false);
-                    pique.setSpinnersShown(true);
-                    builder.setTitle(getString(R.string.choosedate)).setView(pique).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            SaveDate(pique.getYear(), pique.getMonth(), pique.getDayOfMonth());
-                        }
-                    }).show();
+                    DialogoDeData();
                 }
             });
         }else{
-            alertaCalendario.setVisibility(View.GONE);
             calendario.setMinDate(Calendar.getInstance().getTimeInMillis());
             calendario.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
                 @Override
@@ -120,8 +156,6 @@ public class FormReuniaoActivity extends AppCompatActivity {
                 }
             });
         }
-        final EditText horaInicio=findViewById(R.id.horaText);
-        final EditText horaFim=findViewById(R.id.horaText2);
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -220,7 +254,6 @@ public class FormReuniaoActivity extends AppCompatActivity {
             }
         });
 
-        final EditText pcs=findViewById(R.id.pcText);
         pcs.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -251,7 +284,6 @@ public class FormReuniaoActivity extends AppCompatActivity {
             }
         });
 
-
         drop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -262,22 +294,32 @@ public class FormReuniaoActivity extends AppCompatActivity {
             }
         });
 
+        alertaWeek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogoDeData();
+            }
+        });
+
         Button botaoSave=findViewById(R.id.saveButton);
         botaoSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 findViewById(R.id.loadBar).setVisibility(View.VISIBLE);
-                if(descricao!=null&&reuniao!=null){
-                    String resultad="";
-                    //ListaReunioesAdapter.reunioes.add(reuniao);
+                if(descricao!=null&&reuniao!=null) {
+                    String resultad = "";
                     try {
                         JSONObject json = new JSONObject();
                         String jsonEncoded = "kyugasdykgufsdgkutsdagfiu";
                         json.put("id_sala", idsala);
                         json.put("id_usuario", dao.logado.getId());
                         json.put("descricao", descricao);
-                        json.put("data_hora_inicio", new Date(data[2],data[1],data[0],hora1[0],hora1[1]).getTime());
+                        if (modo.isChecked()){
+                            json.put("repeticoes", Reuniao.getRepeticoesAsStringAlt(new Boolean[]{dom.isChecked(), seg.isChecked(), ter.isChecked(), qua.isChecked(), qui.isChecked(), sex.isChecked(), sab.isChecked()}));
+                        }
+                        json.put("data_hora_inicio", new Date(data[2], data[1], data[0], hora1[0], hora1[1]).getTime());
                         json.put("data_hora_fim", new Date(data[2],data[1],data[0],hora2[0],hora2[1]).getTime());
+
                         json.put("ativo", true);
                         jsonEncoded = Base64.encodeToString(json.toString().getBytes("UTF-8"), Base64.NO_WRAP);
                         Log.i("teste", "\n\n\nonClick: "+jsonEncoded+"\n\n\n\n");
@@ -307,19 +349,72 @@ public class FormReuniaoActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     findViewById(R.id.loadBar).setVisibility(View.INVISIBLE);
-                    //dao.ServerInOutput(true,)
                     if(resultad.contains("Reserva realizada com sucesso"))
                         finish();
                     else{
                         builder.setTitle("Erro").setMessage(resultad).show();
-                        //Toast.makeText(FormReuniaoActivity.this,resultad,Toast.LENGTH_LONG);
-
+                        //Toast.makeText(FormReuniaoActivity.this,resultad,Toast.LENGTH_LONG).show();
                     }
                 }else{
                     Toast.makeText(FormReuniaoActivity.this,"Um ou mais campos não foi preenchido",Toast.LENGTH_LONG).show();
                 }
             }
         });
+    }
+
+    private void DialogoDeData() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(FormReuniaoActivity.this);
+        final DatePicker pique = new DatePicker(FormReuniaoActivity.this);
+        pique.setMinDate(Calendar.getInstance().getTimeInMillis()-1000);
+        pique.setCalendarViewShown(false);
+        pique.setSpinnersShown(true);
+        builder.setTitle(getString(R.string.choosedate)).setView(pique).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SaveDate(pique.getYear(), pique.getMonth(), pique.getDayOfMonth());
+            }
+        }).show();
+    }
+
+    public void setConstraint(int constraintId) {
+        ConstraintLayout cons = findViewById(R.id.consLay);
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.clone(cons);
+        constraintSet.connect(R.id.fundoCalend,ConstraintSet.BOTTOM,constraintId,ConstraintSet.BOTTOM,0);
+        constraintSet.applyTo(cons);
+    }
+
+    public void setWeekItemsVisib(int visib) {
+        seg.setVisibility(visib);
+        segText.setVisibility(visib);
+        ter.setVisibility(visib);
+        terText.setVisibility(visib);
+        qua.setVisibility(visib);
+        quaText.setVisibility(visib);
+        qui.setVisibility(visib);
+        quiText.setVisibility(visib);
+        sex.setVisibility(visib);
+        sexText.setVisibility(visib);
+        sab.setVisibility(visib);
+        sabText.setVisibility(visib);
+        dom.setVisibility(visib);
+        domText.setVisibility(visib);
+        alertaWeek.setVisibility(visib);
+    }
+
+    public void atualizaLayoutCalendario(CalendarView calendario, Button alertaCalendario, boolean repe) {
+        if(repe){
+            calendario.setVisibility(View.GONE);
+            alertaCalendario.setVisibility(View.GONE);
+        }else {
+            if (Build.VERSION.SDK_INT < 20) {
+                calendario.setVisibility(View.INVISIBLE);
+                alertaCalendario.setVisibility(View.VISIBLE);
+            }else{
+                calendario.setVisibility(View.VISIBLE);
+                alertaCalendario.setVisibility(View.GONE);
+            }
+        }
     }
 
     public void SaveDate(int ano, int mes, int dia) {
@@ -340,6 +435,5 @@ public class FormReuniaoActivity extends AppCompatActivity {
         }
 
     }
-
 
 }

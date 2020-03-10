@@ -195,6 +195,7 @@ public class ListaReunioesAdapter extends BaseAdapter {
                         JSONObject objec = new JSONObject(dao.ServerInOutput(false,"sala/getById",new String[]{"id"},new Integer[]{obj.getInt("idSala")}));
                         System.out.println(objec);
                         Sala salinha = new Sala(objec.getString("nome"),objec.getInt("quantPCs"),objec.getInt("quantidadePessoasSentadas"),objec.getString("localizacao"),objec.getBoolean("possuiMultimidia"),objec.getBoolean("possuiArcon"));
+                        salinha.setId(objec.getInt("id"));
                         jsonArrayToObject(salinha,obj);
                     }
                 }
@@ -249,10 +250,18 @@ public class ListaReunioesAdapter extends BaseAdapter {
         }*/
             //JSONObject user = new JSONObject(dao.ServerInOutput(false, "usuario/getById", u1, u2));
             if (ativo) {
-                Reuniao newReuniao = new Reuniao(descri, idUser, sala, date, hour1, hour2);
-                newReuniao.setId(id);
-                newReuniao.setRepeticoes(obj.getString("repeticoes"));
-                reunioes.add(newReuniao);
+                boolean auxiliatorio=false;
+                if(soPlayer){
+                    ListaOpcoesAdapter opcoes = new ListaOpcoesAdapter();
+                    opcoes.filtraSalas(dao.logado.getEmpresaId(), 0, false, false);
+                    auxiliatorio = MainActivity.salasNoFiltro.get(opcoes.findSalaOfId(sala.getId()));
+                }
+                if(!soPlayer || auxiliatorio){
+                    Reuniao newReuniao = new Reuniao(descri, idUser, sala, date, hour1, hour2);
+                    newReuniao.setId(id);
+                    newReuniao.setRepeticoes(obj.getString("repeticoes"));
+                    reunioes.add(newReuniao);
+                }
             }
         }
     }
