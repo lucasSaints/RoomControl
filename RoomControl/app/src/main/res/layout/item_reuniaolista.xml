@@ -39,16 +39,23 @@
 
             <TextView
                 android:id="@+id/locador"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
 
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
+                android:ellipsize="end"
+                android:gravity="bottom|right"
+                android:maxLines="1"
                 android:text="~Clovis"
                 android:textSize="18sp"
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/Sala"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -59,6 +66,7 @@
                 android:layout_marginStart="14dp"
                 android:layout_marginLeft="14dp"
                 android:layout_marginTop="16dp"
+                android:gravity="top"
                 android:text="Sala Teste"
                 android:textColor="@color/colorFakeBlack"
                 android:textSize="24sp"
@@ -71,8 +79,8 @@
                 android:layout_width="0dp"
                 android:layout_height="96dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginRight="14dp"
                 android:layout_marginBottom="10dp"
                 android:background="#F3EBA6"
                 android:padding="6dp"
