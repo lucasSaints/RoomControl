@@ -21,6 +21,7 @@ import com.wise.roomcontrol.R;
 import com.wise.roomcontrol.adapters.AuxAdapter;
 import com.wise.roomcontrol.adapters.ListaOpcoesAdapter;
 import com.wise.roomcontrol.classes.Empresa;
+import com.wise.roomcontrol.classes.User;
 
 //import org.json.JSONArray;
 //import org.json.JSONObject;
@@ -100,6 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
                         String resulta=dao.validaCadastro(campoLogin.getText().toString(), campoSenha.getText().toString(), campoUser.getText().toString(), empSelected);
                         if (resulta.equals("Usuário criado com sucesso")) {
                             Log.i("teste", "cadastro validado");
+                            dao.cadastrado=new User(campoLogin.getText().toString(),campoSenha.getText().toString());
                             finish();
                         } else {
                             Toast.makeText(RegisterActivity.this, resulta, Toast.LENGTH_LONG);

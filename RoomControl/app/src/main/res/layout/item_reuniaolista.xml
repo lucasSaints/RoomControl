@@ -65,7 +65,7 @@
 
                 android:layout_marginStart="14dp"
                 android:layout_marginLeft="14dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="14dp"
                 android:gravity="top"
                 android:text="Sala Teste"
                 android:textColor="@color/colorFakeBlack"

@@ -20,6 +20,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class ListaReunioesAdapter extends BaseAdapter {
@@ -203,6 +205,7 @@ public class ListaReunioesAdapter extends BaseAdapter {
                 e.printStackTrace();
             }
         }
+        Collections.sort(reunioes);
         notifyDataSetChanged();
     }
 

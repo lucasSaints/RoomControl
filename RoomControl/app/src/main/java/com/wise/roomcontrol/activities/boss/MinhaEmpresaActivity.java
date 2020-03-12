@@ -23,6 +23,8 @@ import com.wise.roomcontrol.adapters.ListaOpcoesAdapter;
 import com.wise.roomcontrol.adapters.ListaReunioesAdapter;
 import com.wise.roomcontrol.adapters.UserAdapter;
 
+import java.sql.Savepoint;
+
 public class MinhaEmpresaActivity extends AppCompatActivity {
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
@@ -73,15 +75,51 @@ public class MinhaEmpresaActivity extends AppCompatActivity {
                 builder.setTitle("Seleção de cor").setMessage("Selecione a cor da empresa. Visível apenas no seu dispositivo.").setView(editext).setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(editext.getText().toString().length()==7 && editext.getText().toString().charAt(0)=='#') {
+                         /*boolean pode=true;
+                       for(int i=0;i<editext.getText().toString().length();i++){
+                            if(editext.getText().toString().charAt(i)!='#'){
+                                try{
+                                    Integer.parseInt(Character.toString(editext.getText().toString().charAt(i)));
+                                }catch (Exception e){
+                                    if(     editext.getText().toString().charAt(i)!='a'&&editext.getText().toString().charAt(i)!='A'&&
+                                            editext.getText().toString().charAt(i)!='b'&&editext.getText().toString().charAt(i)!='B'&&
+                                            editext.getText().toString().charAt(i)!='c'&&editext.getText().toString().charAt(i)!='C'&&
+                                            editext.getText().toString().charAt(i)!='d'&&editext.getText().toString().charAt(i)!='D'&&
+                                            editext.getText().toString().charAt(i)!='e'&&editext.getText().toString().charAt(i)!='E'&&
+                                            editext.getText().toString().charAt(i)!='f'&&editext.getText().toString().charAt(i)!='F')
+                                        pode=false;
+                                }
+                            }
+                        }
+                        if(editext.getText().toString().length()==7 && editext.getText().toString().charAt(0)=='#' && pode) {
                             editor.putString("color", editext.getText().toString());
-                            editor.commit();
-                        }else if(editext.getText().toString().length()==6 && !editext.getText().toString().contains("#")){
+                            SaveColor();
+                        }else if(editext.getText().toString().length()==6 && !editext.getText().toString().contains("#") && pode){
                             editor.putString("color", "#" + editext.getText().toString());
-                            editor.commit();
+                            SaveColor();
                         }else{
                             Toast.makeText(MinhaEmpresaActivity.this,"Valor inválido",Toast.LENGTH_SHORT).show();
+                        }*/
+                        try{
+                            Color.parseColor(editext.getText().toString());
+                            editor.putString("color", editext.getText().toString());
+                            SaveColor();
+                        }catch(Exception e){
+                            try{
+                                Color.parseColor("#" + editext.getText().toString());
+                                editor.putString("color", editext.getText().toString());
+                                SaveColor();
+                            }catch (Exception ex){
+                                Toast.makeText(MinhaEmpresaActivity.this,"Valor inválido",Toast.LENGTH_SHORT).show();
+                            }
                         }
+                    }
+
+                    private void SaveColor() {
+                        editor.commit();
+                        finish();
+                        overridePendingTransition(0, 0);
+                        startActivity(getIntent());
                     }
                 }).setNegativeButton(getString(R.string.cancel), null).show();
             }

@@ -21,6 +21,7 @@ public class InitTOBEDELETED extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         //getResources().setBoolean
         dao.logado=null;
+        dao.cadastrado=null;
         /*Empresa wise=new Empresa("Wise: Fábrica de Softwares","wises.com.br",'M',true);
         Empresa sraw=new Empresa("Sraw Rats: Fábrica de Hardwares","srawrats.io",'M',true);
         Sala cowork=new Sala("Sala de Coworking",16,2,"4",true,true);

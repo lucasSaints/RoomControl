@@ -22,6 +22,11 @@ public class User {
         return ativo;
     }
 
+    public User(String mail, String senha){
+        this.mail = mail;
+        this.senha = senha;
+    }
+
     public User(String mail, String senha, String user) {
         this.mail = mail;
         this.senha = senha;

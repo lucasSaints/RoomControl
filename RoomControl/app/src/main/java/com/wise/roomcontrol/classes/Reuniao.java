@@ -1,19 +1,19 @@
 package com.wise.roomcontrol.classes;
 
+import android.util.Log;
+
 import com.wise.roomcontrol.R;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Reuniao {
+public class Reuniao implements Comparable<Reuniao> {
     private String descricao;
     private Sala lugar;
-    private int[] data, ultimaRepeticao;
+    private int[] data;
     private int[] hora1, hora2;
     private Boolean[] repeticoes;
-    //private int computadores;
-    //private boolean ac, projetor;
     private int id, locadorId;
 
     public Reuniao(String descricao, int locador, Sala lugar, int[] data, int[] hora1, int[] hora2) {
@@ -102,14 +102,6 @@ public class Reuniao {
         this.repeticoes = repetics;
     }
 
-    public int[] getUltimaRepeticao() {
-        return ultimaRepeticao;
-    }
-
-    public void setUltimaRepeticao(int[] ultimaRepeticao) {
-        this.ultimaRepeticao = ultimaRepeticao;
-    }
-
     public String getHorario(int[] hora){
         String horar="";
         if(hora[0]<10)
@@ -123,5 +115,37 @@ public class Reuniao {
 
     public Date getDataHora(int[] hor){
         return new Date(this.data[2],this.data[1],this.data[0],hor[0],hor[1]);
+    }
+
+    public boolean dataInvalida(){
+        for (int i = 0; i < data.length; i++) {
+            if((Integer) data[i]==null)
+                return true;
+        }
+        for (int i = 0; i < hora1.length; i++) {
+            if((Integer) hora1[i]==null)
+                return true;
+        }
+        for (int i = 0; i < hora2.length; i++) {
+            if((Integer) hora2[i]==null)
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int compareTo(Reuniao o) {
+        Log.i("Reuniao", descricao+" compareTo----------------------------");
+        if(Reuniao.getRepeticoesAsStringAlt(this.repeticoes).isEmpty() || Reuniao.getRepeticoesAsStringAlt(this.repeticoes).equals("0,0,0,0,0,0,0")) {
+            if (this.dataInvalida() || o.dataInvalida()) {
+                Log.i("Reuniao", "data invalida");
+                return 0;
+            }
+            Log.i("Reuniao", "compareTo "+o.getDescricao()+": "+this.getDataHora(this.getHora1()).compareTo(o.getDataHora(o.getHora1())));
+            return this.getDataHora(this.getHora1()).compareTo(o.getDataHora(o.getHora1()));
+        }else {
+            Log.i("Reuniao", "tem repeteco");
+            return 2;
+        }
     }
 }

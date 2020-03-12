@@ -97,6 +97,8 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:contentDescription="@string/handle_drawer_description"
+            android:scaleX="1.175"
+            android:scaleY="1.175"
             android:src="@drawable/drawerpuller" />
 
         <com.google.android.material.navigation.NavigationView

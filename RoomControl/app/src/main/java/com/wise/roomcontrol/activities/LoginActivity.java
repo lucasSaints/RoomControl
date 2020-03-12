@@ -47,7 +47,10 @@ public class LoginActivity extends AppCompatActivity {
             campoLogin.setText(prefs.getString("email", null));
             campoSenha.setText(prefs.getString("senha", null));
         }catch (Exception e){
-            e.printStackTrace();
+            if(dao.cadastrado!=null){
+                campoLogin.setText(dao.cadastrado.getMail());
+                campoSenha.setText(dao.cadastrado.getSenha());
+            }
         }
         final Button botaologin = findViewById(R.id.login);
         botaologin.setOnClickListener(new View.OnClickListener() {

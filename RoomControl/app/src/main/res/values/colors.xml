@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimary">#4f060c</color>
     <color name="colorPrimaryAlt">#3D0911</color>
-    <color name="colorSecondary">#7F282E</color>
+    <color name="colorSecondary">#8B2D33</color>
+    <color name="colorSecondaryAlt">#B85158</color>
     <color name="colorDesaturated">#491016</color>
     <color name="colorAccent">#F82545</color>
     <color name="colorText">#FBF9F0</color>
